@@ -1,0 +1,25 @@
+{
+  "name": "atm-fod-store",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Boutique ATM FOD avec publications partagées",
+  "scripts": {
+    "build:firebase": "esbuild firebase-client.js --bundle --format=iife --target=es2020 --outfile=public/firebase-client.js",
+    "prestart": "npm run build:firebase",
+    "start": "node server.mjs",
+    "predev": "npm run build:firebase",
+    "dev": "node --watch server.mjs"
+  },
+  "dependencies": {
+    "busboy": "^1.6.0",
+    "express": "^4.22.3",
+    "file-type": "^21.1.1",
+    "peer": "^1.0.2",
+    "peerjs": "^1.5.5",
+    "socket.io": "^4.8.4"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "firebase": "^13.2.0"
+  }
+}

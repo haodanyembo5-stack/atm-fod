@@ -1,0 +1,1995 @@
+_<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5ef">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ATM FOD">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="description" content="ATM FOD, objets choisis pour une maison qui vous ressemble. Découvrez notre sélection responsable et intemporelle.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:site_name" content="ATM FOD">
+  <meta property="og:title" content="ATM FOD — De belles choses, pour longtemps">
+  <meta property="og:description" content="Objets choisis avec soin pour une maison qui vous ressemble.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&h=630&q=85">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <!-- PUBLIC_SITE_SEO -->
+  <title>ATM FOD — De belles choses, pour longtemps</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io({ transports: ["polling"] });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;650;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <script defer src="/firebase-client.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f5ef;
+      --ink: #263b35;
+      --muted: #78827a;
+      --line: #e4e5dc;
+      --leaf: #ddec81;
+      --coral: #e88769;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 14px; -webkit-font-smoothing: antialiased; }
+    body.locked { overflow: hidden; }
+    button, input { color: inherit; font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #e88769; outline-offset: 3px; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+    .announcement { min-height: 34px; display: grid; place-items: center; padding: 7px 16px; background: var(--ink); color: #fff; text-align: center; font-size: 10px; letter-spacing: .06em; }
+    .announcement strong { color: var(--leaf); font-weight: 600; }
+    .site-header { position: sticky; z-index: 5; top: 0; background: var(--paper); }
+    .quick-actions { position: fixed; z-index: 13; bottom: 20px; left: 20px; min-height: 0; display: flex; align-items: center; gap: 6px; padding: 5px 9px 5px 5px; border: 1px solid var(--line); border-radius: 999px; background: #fff; box-shadow: 0 5px 18px rgba(38, 59, 53, .2); }
+    .quick-action { width: 48px; min-width: 48px; height: 48px; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 0; border-radius: 50%; background: var(--leaf); color: var(--ink); }
+    .quick-action:hover, .quick-action:focus-visible { background: #ecf5ac; color: var(--ink); }
+    .quick-action svg { width: 18px; height: 18px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+    .quick-action-label { display: none; }
+    .app-menu-dialog { position: fixed; top: 50%; left: 50%; width: min(520px, calc(100% - 32px)); max-height: min(90vh, 700px); margin: 0; overflow-y: auto; transform: translate(-50%, -50%); text-align: left; }
+    .app-menu-dialog .dialog-close { position: absolute; top: 16px; right: 16px; }
+    .app-menu-dialog h2 { margin: 0 40px 8px 0; font-size: 31px; }
+    .app-menu-intro { margin: 0 0 18px; }
+    .app-menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+    .app-menu-item { min-height: 78px; display: flex; align-items: center; gap: 12px; padding: 13px; border: 1px solid var(--line); background: #fbfaf6; text-align: left; }
+    .app-menu-item:hover, .app-menu-item:focus-visible { border-color: var(--ink); background: #fff; }
+    .app-menu-item svg { width: 22px; height: 22px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+    .app-menu-item span { font-size: 11px; font-weight: 600; }
+    .utility-dialog { position: fixed; top: 50%; left: 50%; max-height: min(90vh, 700px); margin: 0; overflow-y: auto; transform: translate(-50%, -50%); text-align: left; }
+    .utility-dialog .dialog-close { position: absolute; top: 16px; right: 16px; }
+    .utility-dialog h2 { margin: 0 42px 8px 0; font-size: 29px; }
+    .utility-dialog > p:not(.section-eyebrow) { color: #657168; font-size: 11px; line-height: 1.8; }
+    .utility-dialog ul { display: grid; gap: 9px; padding-left: 20px; color: #59645d; font-size: 11px; line-height: 1.7; }
+    .utility-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
+    .utility-actions a, .utility-actions button { min-height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 0 13px; border: 1px solid var(--line); background: #fbfaf6; color: var(--ink); font-size: 10px; font-weight: 600; }
+    .utility-actions a:hover, .utility-actions button:hover { border-color: var(--ink); }
+    .utility-note { padding: 11px 13px; border-left: 2px solid var(--leaf); background: #f2f1e9; }
+    .location-dialog { width: min(760px, calc(100% - 32px)); }
+    .location-map { width: 100%; min-height: 280px; height: min(60vh, 480px); margin-top: 16px; background: #e8e7de; }
+    .location-map[hidden] { display: none; }
+    .location-map iframe { width: 100%; height: 100%; border: 0; }
+    .location-status { min-height: 18px; margin: 12px 0; color: #657168; font-size: 11px; line-height: 1.7; }
+    .location-actions { align-items: center; }
+    .location-open-link[hidden] { display: none; }
+    @media (max-width: 420px) { .app-menu-grid { grid-template-columns: 1fr; } .app-menu-item { min-height: 56px; } }
+    .services-dialog { position: fixed; top: 50%; left: 50%; width: min(520px, calc(100% - 32px)); max-height: min(90vh, 700px); margin: 0; overflow-y: auto; transform: translate(-50%, -50%); text-align: left; }
+    .services-dialog .dialog-close { position: absolute; top: 16px; right: 16px; }
+    .services-dialog h2 { margin: 0 40px 8px 0; font-size: 31px; }
+    .services-dialog-intro { margin: 0 0 18px; }
+    .services-menu { display: grid; gap: 10px; }
+    .services-menu-link { display: block; width: 100%; padding: 15px; border: 1px solid var(--line); background: #fbfaf6; text-align: left; }
+    .services-menu-link:hover, .services-menu-link:focus-visible { border-color: var(--ink); background: #fff; }
+    .services-menu-link strong { display: block; margin-bottom: 5px; font-family: var(--serif); font-size: 20px; font-weight: 500; }
+    .services-menu-link span { display: block; color: #657168; font-size: 10px; line-height: 1.7; }
+    .quick-online-count { margin: 0; color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .quick-online-count::before { display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #63a879; content: ""; }
+    .quick-online-count.disconnected::before { background: var(--coral); }
+    .masthead { width: min(1320px, calc(100% - 88px)); min-height: 77px; margin: auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
+    .logo { justify-self: start; font-size: 30px; font-weight: 700; letter-spacing: -.035em; }
+    .logo span { color: #d87558; }
+    .main-nav { display: flex; align-items: center; gap: 32px; }
+    .main-nav a { color: #526059; font-size: 12px; white-space: nowrap; transition: color .18s ease; }
+    .main-nav a:hover { color: #d87558; }
+    .header-actions { justify-self: end; display: flex; align-items: center; gap: 12px; }
+    .search { display: flex; align-items: center; gap: 8px; width: 174px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+    .search-icon { flex: 0 0 auto; font-size: 17px; line-height: 1; }
+    .search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 11px; }
+    .search input::placeholder { color: #858b83; }
+    .search:focus-within { border-color: var(--ink); }
+    .account-button { min-height: 37px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 0 11px; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 10px; white-space: nowrap; }
+    .account-button:hover { border-color: var(--ink); }
+    .account-icon { display: none; }
+    .bag-button { position: relative; width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--leaf); font-size: 17px; transition: transform .18s ease; }
+    .bag-button:hover { transform: rotate(-8deg); }
+    .bag-count { position: absolute; top: -4px; right: -3px; min-width: 16px; height: 16px; display: grid; place-items: center; padding: 0 4px; border: 2px solid var(--paper); border-radius: 10px; background: var(--coral); color: white; font-size: 9px; }
+    .hero { position: relative; width: min(1440px, calc(100% - 48px)); min-height: 510px; margin: 0 auto; overflow: hidden; display: flex; align-items: center; background: #647064 url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=85") center 54% / cover no-repeat; color: white; }
+    .hero::before { position: absolute; inset: 0; background: rgba(25, 38, 31, .3); content: ""; }
+    .hero-copy { position: relative; width: min(680px, 75%); margin: 0 0 0 max(7%, calc((100% - 1180px) / 2)); padding: 65px 0; animation: arrive .7s ease both; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 20px; font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { width: 23px; height: 1px; background: var(--leaf); content: ""; }
+    .hero h1 { max-width: 610px; margin: 0; font-family: var(--serif); font-size: clamp(54px, 7vw, 88px); font-weight: 500; line-height: 1.02; letter-spacing: -.045em; }
+    .hero-description { max-width: 340px; margin: 18px 0 25px; color: #f0eee7; font-size: 13px; line-height: 1.8; }
+    .button-primary { min-height: 45px; display: inline-flex; align-items: center; justify-content: center; gap: 22px; padding: 0 19px; border: 0; background: var(--leaf); color: var(--ink); font-size: 11px; font-weight: 600; transition: background .2s ease, gap .2s ease; }
+    .button-primary:hover { gap: 29px; background: #ecf5ac; }
+    .hero-note { position: absolute; right: 25px; bottom: 23px; color: white; font-size: 9px; letter-spacing: .06em; }
+    .benefits { width: min(1100px, calc(100% - 48px)); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+    .benefit { min-height: 68px; display: flex; align-items: center; justify-content: center; gap: 9px; padding: 12px 8px; color: #59645d; font-size: 10px; text-align: center; }
+    .benefit + .benefit { border-left: 1px solid var(--line); }
+    .benefit-symbol { color: #d87558; font-size: 15px; }
+    .services { width: min(1200px, calc(100% - 72px)); margin: 70px auto 84px; }
+    .services-heading { max-width: 580px; margin-bottom: 25px; }
+    .services-heading h2 { margin: 0; font-family: var(--serif); font-size: 39px; font-weight: 500; letter-spacing: -.04em; }
+    .services-intro { margin: 10px 0 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .service-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .service-card { min-width: 0; padding: 27px; border: 1px solid var(--line); background: #fbfaf6; }
+    .service-card-label { margin: 0 0 10px; color: #d87558; font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+    .service-card h3 { margin: 0; font-family: var(--serif); font-size: 28px; font-weight: 500; }
+    .service-card p:not(.service-card-label) { max-width: 480px; margin: 11px 0 16px; color: #59645d; font-size: 11px; line-height: 1.8; }
+    .service-list { display: grid; gap: 8px; margin: 0 0 20px; padding: 0; list-style: none; color: #59645d; font-size: 10px; }
+    .service-list li::before { margin-right: 8px; color: #d87558; content: "—"; }
+    .service-link { display: inline-flex; align-items: center; gap: 10px; padding-bottom: 4px; border-bottom: 1px solid var(--ink); font-size: 10px; font-weight: 600; }
+    .service-link-button { padding: 0 0 4px; border: 0; border-bottom: 1px solid var(--ink); background: transparent; color: inherit; font: inherit; cursor: pointer; }
+    .service-note { margin: 16px 0 0; padding: 11px 13px; border-left: 2px solid var(--leaf); background: #f2f1e9; color: #59645d; font-size: 9px; line-height: 1.7; }
+    .youtube-dialog { position: fixed; top: 50%; left: 50%; width: min(920px, calc(100% - 32px)); max-height: min(92vh, 900px); margin: 0; overflow-y: auto; transform: translate(-50%, -50%); text-align: left; }
+    .youtube-dialog .dialog-close { position: absolute; top: 16px; right: 16px; }
+    .youtube-dialog h2 { margin: 0 42px 12px 0; font-size: 29px; }
+    .youtube-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-bottom: 14px; }
+    .youtube-tools form { display: grid; align-content: start; gap: 7px; color: #59645d; font-size: 10px; }
+    .youtube-tool-row { display: flex; gap: 7px; }
+    .youtube-tool-row input { width: 100%; min-width: 0; min-height: 40px; padding: 0 10px; border: 1px solid var(--line); background: #fff; font-size: 11px; }
+    .youtube-tool-row button { flex: 0 0 auto; min-height: 40px; padding: 0 12px; border: 1px solid var(--ink); background: var(--ink); color: #fff; font-size: 10px; font-weight: 600; }
+    .youtube-tool-row button:disabled { cursor: wait; opacity: .6; }
+    .youtube-results { display: grid; gap: 7px; max-height: 240px; margin: 0 0 14px; overflow-y: auto; }
+    .youtube-result { width: 100%; min-width: 0; display: grid; grid-template-columns: minmax(88px, 120px) minmax(0, 1fr); align-items: center; gap: 12px; padding: 7px; border: 1px solid var(--line); background: #fff; color: var(--ink); text-align: left; }
+    .youtube-result:hover, .youtube-result:focus-visible { border-color: var(--ink); }
+    .youtube-result img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #e4e5dc; }
+    .youtube-result-copy { min-width: 0; display: grid; gap: 4px; }
+    .youtube-result-copy strong { font-size: 11px; font-weight: 600; line-height: 1.5; }
+    .youtube-result-copy span { color: #657168; font-size: 9px; }
+    .youtube-frame { overflow: hidden; aspect-ratio: 16 / 9; background: #111; }
+    .youtube-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+    .youtube-status { min-height: 1.5em; margin: 0 0 10px; color: #657168; font-size: 10px; }
+    .tiktok-dialog { position: fixed; top: 50%; left: 50%; width: min(520px, calc(100% - 32px)); max-height: min(92vh, 900px); margin: 0; overflow-y: auto; transform: translate(-50%, -50%); text-align: left; }
+    .tiktok-dialog .dialog-close { position: absolute; top: 16px; right: 16px; }
+    .tiktok-dialog h2 { margin: 0 42px 12px 0; font-size: 29px; }
+    .tiktok-tools { display: grid; gap: 7px; margin-bottom: 12px; color: #59645d; font-size: 10px; }
+    .tiktok-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+    .tiktok-frame { width: min(100%, 560px); height: min(65vh, 700px); min-height: 400px; margin: 0 auto 12px; overflow: auto; background: #fff; }
+    .tiktok-frame .tiktok-embed { width: 100%; max-width: 560px !important; min-width: 288px; margin: 0 auto !important; }
+    .tiktok-open-link { display: inline-flex; margin-bottom: 4px; font-size: 10px; font-weight: 600; }
+    @media (max-width: 600px) { .youtube-tools { grid-template-columns: 1fr; } .youtube-dialog { padding: 24px 18px; } }
+    .catalogue { width: min(1200px, calc(100% - 72px)); margin: 84px auto 98px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
+    .section-eyebrow { margin: 0 0 8px; color: #d87558; font-size: 9px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+    .section-heading h2 { margin: 0; font-family: var(--serif); font-size: 39px; font-weight: 500; letter-spacing: -.04em; }
+    .filters { display: flex; gap: 6px; overflow-x: auto; padding: 3px 2px 6px; scrollbar-width: thin; }
+    .filter-button { flex: 0 0 auto; min-height: 34px; padding: 0 13px; border: 1px solid transparent; background: transparent; color: #737c75; font-size: 10px; transition: color .18s ease, background .18s ease; }
+    .filter-button:hover { color: var(--ink); }
+    .filter-button[aria-pressed="true"] { background: var(--ink); color: white; }
+    .product-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 33px 18px; margin-top: 18px; }
+    .product-card { min-width: 0; animation: arrive .4s ease both; }
+    .product-image { position: relative; overflow: hidden; aspect-ratio: 4 / 4.7; background: #e8e7de; }
+    .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+    .product-card:hover .product-image img { transform: scale(1.035); }
+    .product-label { position: absolute; top: 11px; left: 11px; padding: 6px 8px; background: var(--paper); color: #576157; font-size: 8px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .quick-add { position: absolute; right: 10px; bottom: 10px; width: 37px; height: 37px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--paper); color: var(--ink); font-size: 21px; line-height: 1; transition: background .18s ease, transform .18s ease; }
+    .quick-add:hover { transform: rotate(90deg); background: var(--leaf); }
+    .product-info { display: flex; align-items: start; justify-content: space-between; gap: 8px; padding-top: 11px; }
+    .product-name { margin: 0; font-size: 12px; font-weight: 500; line-height: 1.5; }
+    .product-meta { margin: 4px 0 0; color: var(--muted); font-size: 10px; }
+    .product-price { flex: 0 0 auto; margin: 1px 0 0; font-size: 11px; font-weight: 600; }
+    .empty-results { grid-column: 1 / -1; padding: 65px 12px; color: var(--muted); text-align: center; }
+    .empty-results strong { display: block; margin-bottom: 8px; color: var(--ink); font-family: var(--serif); font-size: 25px; font-weight: 500; }
+    .story { position: relative; width: min(1440px, calc(100% - 48px)); min-height: 340px; margin: 0 auto 94px; overflow: hidden; display: flex; align-items: center; background: #ead9c6 url("https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=80") center 52% / cover no-repeat; }
+    .story::before { position: absolute; inset: 0; background: rgba(246, 245, 239, .48); content: ""; }
+    .story-copy { position: relative; max-width: 380px; margin: 40px 8%; }
+    .story h2 { margin: 0 0 12px; font-family: var(--serif); font-size: 43px; font-weight: 500; line-height: 1.12; }
+    .story p:not(.section-eyebrow) { max-width: 310px; margin: 0 0 21px; color: #49564f; font-size: 12px; line-height: 1.8; }
+    .text-link { display: inline-flex; align-items: center; gap: 13px; padding-bottom: 5px; border-bottom: 1px solid var(--ink); font-size: 10px; font-weight: 600; }
+    .site-footer { background: #263b35; color: #f5f4ed; }
+    .footer-inner { width: min(1200px, calc(100% - 72px)); margin: auto; padding: 45px 0 25px; }
+    .footer-top { display: flex; align-items: start; justify-content: space-between; gap: 36px; padding-bottom: 40px; }
+    .footer-brand .logo { display: inline-block; font-size: 34px; }
+    .footer-brand p { max-width: 230px; margin: 10px 0 0; color: #bdc5bb; font-size: 11px; line-height: 1.8; }
+    .social-share { max-width: 520px; margin: 0 0 28px; }
+    .social-share h2 { margin: 0 0 7px; font-family: var(--serif); font-size: 20px; font-weight: 500; }
+    .social-share p { margin: 0 0 13px; color: #bdc5bb; font-size: 10px; line-height: 1.6; }
+    .social-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .social-link { min-height: 34px; display: inline-flex; align-items: center; padding: 0 11px; border: 1px solid #66756b; border-radius: 18px; background: transparent; color: #f5f4ed; font-size: 10px; }
+    .social-link:hover { border-color: var(--leaf); color: var(--leaf); }
+    .newsletter { width: min(100%, 380px); }
+    .newsletter h2 { margin: 0 0 6px; font-family: var(--serif); font-size: 23px; font-weight: 500; }
+    .newsletter p { margin: 0 0 14px; color: #bdc5bb; font-size: 10px; }
+    .newsletter-form { display: flex; border-bottom: 1px solid #66756b; }
+    .newsletter-form input { flex: 1; min-width: 0; padding: 11px 0; border: 0; background: transparent; color: white; font-size: 11px; outline: 0; }
+    .newsletter-form input::placeholder { color: #bdc5bb; }
+    .newsletter-form button { padding: 8px 0 8px 12px; border: 0; background: transparent; color: var(--leaf); font-size: 18px; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 12px; padding-top: 17px; border-top: 1px solid #43564a; color: #bdc5bb; font-size: 9px; }
+    .overlay { position: fixed; z-index: 8; inset: 0; background: rgba(22, 32, 27, .38); opacity: 0; transition: opacity .25s ease; }
+    .overlay.visible { opacity: 1; }
+    .cart-drawer { position: fixed; z-index: 9; top: 0; right: 0; bottom: 0; width: min(430px, 100%); display: flex; flex-direction: column; padding: 27px; background: var(--paper); transform: translateX(102%); transition: transform .28s cubic-bezier(.2,.7,.2,1); }
+    .cart-drawer.open { transform: translateX(0); }
+    .drawer-heading { display: flex; align-items: center; justify-content: space-between; padding-bottom: 19px; border-bottom: 1px solid var(--line); }
+    .drawer-heading h2 { margin: 0; font-family: var(--serif); font-size: 27px; font-weight: 500; }
+    .icon-button { width: 37px; height: 37px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: transparent; font-size: 18px; }
+    .icon-button:hover { background: white; }
+    .cart-items { flex: 1; overflow: auto; }
+    .cart-empty { display: grid; place-content: center; justify-items: center; gap: 8px; height: 100%; color: var(--muted); text-align: center; }
+    .cart-empty strong { color: var(--ink); font-family: var(--serif); font-size: 23px; font-weight: 500; }
+    .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 13px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .cart-item img { width: 72px; height: 83px; object-fit: cover; }
+    .cart-item-name { margin: 2px 0 5px; font-size: 11px; font-weight: 600; }
+    .cart-item-price { margin: 0; color: var(--muted); font-size: 10px; }
+    .quantity-control { width: 78px; height: 27px; display: flex; align-items: center; justify-content: space-between; margin-top: 11px; border: 1px solid var(--line); }
+    .quantity-control button { width: 25px; height: 25px; border: 0; background: transparent; font-size: 14px; }
+    .quantity-control span { font-size: 10px; }
+    .remove-button { align-self: start; padding: 5px; border: 0; background: transparent; color: var(--muted); font-size: 15px; }
+    .cart-summary { padding-top: 16px; border-top: 1px solid var(--line); }
+    .shipping-note { margin: 0 0 14px; color: #626e65; font-size: 10px; line-height: 1.6; }
+    .shipping-track { height: 3px; margin: 8px 0 16px; background: var(--line); }
+    .shipping-progress { height: 100%; background: var(--leaf); transition: width .2s ease; }
+    .subtotal { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 12px; }
+    .checkout-button { width: 100%; min-height: 45px; border: 0; background: var(--ink); color: white; font-size: 11px; font-weight: 600; }
+    .checkout-button:hover:not(:disabled) { background: #3b574c; }
+    .checkout-button:disabled { cursor: not-allowed; opacity: .4; }
+    .checkout-caption { margin: 10px 0 0; color: var(--muted); font-size: 9px; text-align: center; }
+    dialog { width: min(430px, calc(100% - 32px)); padding: 30px; border: 0; background: var(--paper); color: var(--ink); text-align: center; }
+    dialog::backdrop { background: rgba(22, 32, 27, .5); }
+    .dialog-close { position: absolute; top: 12px; right: 12px; }
+    .confirmation-mark { width: 44px; height: 44px; display: grid; place-items: center; margin: 7px auto 17px; border-radius: 50%; background: var(--leaf); font-size: 19px; }
+    dialog h2 { margin: 0 0 10px; font-family: var(--serif); font-size: 27px; font-weight: 500; }
+    dialog p { color: #657168; font-size: 11px; line-height: 1.8; }
+    dialog .button-primary { margin-top: 8px; }
+    .signup-dialog { position: relative; max-height: min(90vh, 760px); overflow-y: auto; text-align: left; }
+    .signup-dialog .dialog-close { position: absolute; top: 16px; right: 16px; }
+    .signup-dialog h2 { margin: 0 42px 8px 0; font-size: 31px; }
+    .signup-intro { margin: 0 0 21px; }
+    .signup-form { display: grid; gap: 13px; }
+    .signup-field { display: grid; gap: 6px; color: #58665c; font-size: 10px; font-weight: 600; }
+    .signup-field input, .signup-field select { width: 100%; min-height: 42px; padding: 0 11px; border: 1px solid var(--line); border-radius: 0; background: #fff; color: var(--ink); font-size: 12px; font-weight: 400; }
+    .signup-field input::placeholder { color: #9a9e96; }
+    .signup-field input:focus, .signup-field select:focus { border-color: var(--ink); }
+    .signup-extra[hidden] { display: none; }
+    .signup-submit { width: 100%; margin-top: 3px; }
+    .signup-status { min-height: 16px; margin: 13px 0 0; color: #526059; font-size: 10px; }
+    .profile-note { margin: 15px 0 0; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 9px; line-height: 1.7; }
+    .community { width: min(1200px, calc(100% - 72px)); margin: 0 auto 94px; padding-top: 67px; border-top: 1px solid var(--line); }
+    .community-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+    .community-heading h2 { margin: 0; font-family: var(--serif); font-size: 39px; font-weight: 500; }
+    .community-description { max-width: 370px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+    .community-privacy { margin: 0 0 15px; color: #667269; font-size: 10px; line-height: 1.7; }
+    .publication-form { padding: 18px; border: 1px solid var(--line); background: #fbfaf6; }
+    .publication-form textarea { width: 100%; min-height: 100px; resize: vertical; padding: 12px; border: 1px solid var(--line); background: #fff; color: var(--ink); font: inherit; font-size: 12px; line-height: 1.7; }
+    .publication-form textarea::placeholder { color: #858b83; }
+    .publication-form textarea:focus { border-color: var(--ink); }
+    .file-picker { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+    .file-picker:focus-visible + .upload-label { outline: 2px solid var(--coral); outline-offset: 3px; }
+    .upload-label { min-height: 38px; display: inline-flex; align-items: center; gap: 9px; padding: 0 11px; border: 1px solid var(--line); color: var(--ink); cursor: pointer; font-size: 10px; }
+    .upload-label:hover { border-color: var(--ink); }
+    .upload-mark { font-size: 17px; }
+    .attachment-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; margin-top: 12px; }
+    .attachment-item { position: relative; min-width: 0; overflow: hidden; background: #eeede6; }
+    .attachment-preview { width: 100%; max-height: 160px; aspect-ratio: 4 / 3; object-fit: cover; background: #e8e7de; }
+    .attachment-audio { width: calc(100% - 16px); margin: 15px 8px; }
+    .attachment-pdf { min-height: 90px; display: flex; align-items: center; gap: 9px; padding: 14px; color: var(--ink); }
+    .pdf-mark { flex: 0 0 auto; display: grid; place-items: center; width: 34px; height: 38px; background: var(--coral); color: white; font-size: 9px; font-weight: 700; }
+    .attachment-name { display: block; overflow: hidden; padding: 7px 9px; color: #566259; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+    .attachment-remove { position: absolute; z-index: 1; top: 6px; right: 6px; width: 27px; height: 27px; border: 0; border-radius: 50%; background: var(--paper); font-size: 16px; }
+    .attachment-status, .gps-status { min-height: 14px; margin: 8px 0 0; color: var(--muted); font-size: 9px; line-height: 1.6; }
+    .publication-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-top: 15px; }
+    .gps-button, .gps-clear { min-height: 38px; padding: 0 12px; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 10px; }
+    .gps-button:hover, .gps-clear:hover { border-color: var(--ink); }
+    .gps-button:disabled { cursor: wait; opacity: .6; }
+    .gps-clear[hidden] { display: none; }
+    .publish-button { min-height: 40px; margin-left: auto; }
+    .feed-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 34px 0 0; }
+    .feed-heading h3 { margin: 0; font-family: var(--serif); font-size: 23px; font-weight: 500; }
+    .feed-count { color: var(--muted); font-size: 9px; }
+    .analytics-consent[hidden] { display: none; }
+    .analytics-consent { position: fixed; z-index: 11; right: 16px; bottom: 16px; left: 16px; width: min(760px, calc(100% - 32px)); margin: 0 auto; padding: 17px 19px; border-top: 3px solid var(--leaf); background: #fff; box-shadow: 0 7px 30px rgba(38, 59, 53, .16); }
+    .analytics-copy strong { font-family: var(--serif); font-size: 17px; font-weight: 500; }
+    .analytics-copy p { margin: 5px 0 0; color: #647068; font-size: 10px; line-height: 1.7; }
+    .analytics-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 13px; }
+    .analytics-actions button { min-height: 37px; padding: 0 12px; border: 1px solid var(--line); background: transparent; font-size: 10px; }
+    .analytics-actions button:hover { border-color: var(--ink); }
+    .analytics-actions .button-primary { border: 0; }
+    .privacy-settings { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+    .publication-status { min-height: 14px; margin: 8px 0; color: var(--muted); font-size: 9px; }
+    .publication-feed { margin-top: 10px; }
+    .feed-empty { padding: 24px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .publication-card { padding: 18px 0; border-top: 1px solid var(--line); }
+    .publication-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .publication-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .publication-author { margin: 0; font-size: 10px; font-weight: 600; }
+    .publication-role { padding: 4px 7px; background: #e9eadf; color: #566259; font-size: 8px; }
+    .publication-date { margin-left: 9px; color: var(--muted); font-size: 9px; }
+    .delete-publication { width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 50%; background: transparent; font-size: 15px; }
+    .publication-text { margin: 10px 0 0; font-size: 11px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .publication-media { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 12px; }
+    .publication-location { display: inline-flex; align-items: center; gap: 7px; margin-top: 12px; color: #526059; font-size: 10px; text-decoration: underline; text-underline-offset: 3px; }
+    .toast { position: fixed; z-index: 12; right: 22px; bottom: 22px; padding: 13px 18px; background: var(--ink); color: white; font-size: 11px; transform: translateY(14px); opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+    .toast.visible { transform: translateY(0); opacity: 1; }
+    @keyframes arrive { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    @media (max-width: 850px) {
+      .masthead { width: calc(100% - 40px); grid-template-columns: auto 1fr auto; gap: 16px; }
+      .main-nav { justify-content: center; gap: 19px; }
+      .search { width: 125px; }
+      .hero { min-height: 440px; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 15px; }
+      .catalogue { margin-top: 64px; }
+      .services { width: min(1200px, calc(100% - 40px)); }
+    }
+    @media (max-width: 560px) {
+      .announcement { min-height: 32px; font-size: 9px; }
+      .quick-actions { bottom: 12px; left: 12px; gap: 4px; padding: 4px 7px 4px 4px; }
+      .quick-action { width: 44px; min-width: 44px; height: 44px; min-height: 44px; }
+      .quick-online-count { font-size: 9px; }
+      .chat-widget { right: 12px; }
+      .masthead { width: calc(100% - 32px); min-height: 64px; grid-template-columns: auto 1fr auto; gap: 10px; }
+      .logo { font-size: 27px; }
+      .main-nav { justify-content: center; gap: 12px; }
+      .main-nav a { font-size: 10px; }
+      .main-nav a:last-child { display: none; }
+      .header-actions { gap: 7px; }
+      .account-button { width: 36px; min-height: 36px; padding: 0; border: 0; border-radius: 50%; background: #e8e7de; font-size: 16px; }
+      .account-button:hover { background: var(--leaf); }
+      .account-label { display: none; }
+      .account-icon { display: inline; }
+      .search { width: 30px; border: 0; }
+      .search input { position: absolute; top: 56px; left: 16px; right: 65px; width: calc(100% - 90px); padding: 10px 12px; border: 1px solid var(--line); background: var(--paper); opacity: 0; pointer-events: none; transition: opacity .15s ease; }
+      .search:focus-within input { opacity: 1; pointer-events: auto; }
+      .bag-button { width: 36px; height: 36px; }
+      .hero { width: calc(100% - 24px); min-height: 470px; background-position: 58% center; }
+      .hero::before { background: rgba(25, 38, 31, .38); }
+      .hero-copy { width: 88%; margin-left: 7%; }
+      .hero h1 { font-size: 57px; }
+      .hero-description { max-width: 285px; font-size: 12px; }
+      .hero-note { right: 12px; bottom: 13px; font-size: 8px; }
+      .benefits { width: calc(100% - 32px); grid-template-columns: 1fr; padding: 6px 0; }
+      .benefit { min-height: 40px; justify-content: flex-start; padding-left: 14%; font-size: 10px; text-align: left; }
+      .benefit + .benefit { border-top: 1px solid var(--line); border-left: 0; }
+      .catalogue { width: calc(100% - 32px); margin: 53px auto 64px; }
+      .services { width: calc(100% - 32px); margin: 53px auto 64px; }
+      .services-heading h2 { font-size: 33px; }
+      .service-grid { grid-template-columns: 1fr; gap: 12px; }
+      .service-card { padding: 20px; }
+      .community { width: calc(100% - 32px); margin-bottom: 64px; padding-top: 48px; }
+      .community-heading { align-items: start; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+      .community-heading h2 { font-size: 33px; }
+      .publication-form { padding: 12px; }
+      .publication-actions { align-items: stretch; }
+      .publish-button { width: 100%; margin-left: 0; }
+      .publication-media { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-heading { align-items: start; flex-direction: column; gap: 12px; margin-bottom: 17px; }
+      .section-heading h2 { font-size: 33px; }
+      .filters { width: calc(100% + 16px); margin-right: -16px; }
+      .product-grid { gap: 22px 10px; margin-top: 10px; }
+      .product-image { aspect-ratio: 4 / 5; }
+      .product-label { top: 7px; left: 7px; padding: 5px 6px; font-size: 7px; }
+      .quick-add { right: 7px; bottom: 7px; width: 33px; height: 33px; }
+      .product-name, .product-price { font-size: 10px; }
+      .product-meta { font-size: 9px; }
+      .product-info { gap: 4px; }
+      .story { width: calc(100% - 24px); min-height: 320px; margin-bottom: 62px; background-position: 61% center; }
+      .story::before { background: rgba(246, 245, 239, .64); }
+      .story-copy { max-width: 320px; margin: 32px 7%; }
+      .story h2 { font-size: 37px; }
+      .footer-inner { width: calc(100% - 40px); padding-top: 34px; }
+      .footer-top { flex-direction: column; gap: 27px; padding-bottom: 29px; }
+      .newsletter { width: 100%; }
+      .footer-bottom { font-size: 8px; }
+      .cart-drawer { padding: 21px; }
+      .analytics-consent { right: 12px; bottom: 12px; left: 12px; width: calc(100% - 24px); padding: 15px; }
+      .analytics-actions { display: grid; grid-template-columns: 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">Un petit cadeau pour vous : <strong>&nbsp;livraison offerte dès 80 €</strong></div>
+  <nav class="quick-actions" aria-label="Raccourcis ATM FOD">
+    <button class="quick-action" id="open-app-menu" type="button" aria-label="Ouvrir le menu des 11 raccourcis" aria-haspopup="dialog" aria-controls="app-menu-dialog">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span class="quick-action-label">Menu</span>
+    </button>
+    <span class="quick-online-count disconnected" id="quick-online-count" role="status" aria-live="polite">Hors ligne</span>
+  </nav>
+  <header class="site-header">
+    <div class="masthead">
+      <a class="logo" href="#accueil" aria-label="ATM FOD, accueil">ATM <span>FOD</span></a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="#collection">La collection</a>
+        <a href="#partage">Partage</a>
+        <a href="#histoire">Notre histoire</a>
+      </nav>
+      <div class="header-actions">
+        <label class="search" aria-label="Rechercher un produit">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" placeholder="Je cherche..." autocomplete="off">
+        </label>
+        <button class="account-button" id="open-account" type="button" aria-label="Créer un profil"><span class="account-label" id="account-label">Inscription</span><span class="account-icon" aria-hidden="true">♙</span></button>
+        <button class="bag-button" id="open-cart" type="button" aria-label="Ouvrir mon panier">♧<span class="bag-count" id="bag-count" aria-live="polite">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Une maison à votre image</p>
+        <h1 id="hero-title">Le beau,<br>au quotidien.</h1>
+        <p class="hero-description">Des objets choisis avec soin, pensés pour durer et pour rendre chaque jour un peu plus doux.</p>
+        <a class="button-primary" href="#collection">Explorer la collection <span aria-hidden="true">→</span></a>
+      </div>
+      <span class="hero-note">Des pièces choisies pour vivre avec vous</span>
+    </section>
+
+    <section class="benefits" aria-label="Nos engagements">
+      <div class="benefit"><span class="benefit-symbol" aria-hidden="true">✳</span> De petites séries, de beaux matériaux</div>
+      <div class="benefit"><span class="benefit-symbol" aria-hidden="true">↗</span> Livraison offerte dès 80 €</div>
+      <div class="benefit"><span class="benefit-symbol" aria-hidden="true">♡</span> 30 jours pour changer d’avis</div>
+    </section>
+
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="services-heading">
+        <p class="section-eyebrow">Nos services</p>
+        <h2 id="services-title">Des services et du divertissement.</h2>
+        <p class="services-intro">Des ressources pour vos projets et un accès rapide aux plateformes vidéo de la communauté ATM FOD.</p>
+      </div>
+      <div class="service-grid">
+        <article class="service-card" id="marketing-service" aria-labelledby="marketing-title">
+          <p class="service-card-label">Visibilité &amp; communication</p>
+          <h3 id="marketing-title">Marketing</h3>
+          <p>Présentez votre activité avec une communication claire et cohérente, adaptée à votre audience et à vos objectifs.</p>
+          <ul class="service-list">
+            <li>Stratégie de contenu et calendrier éditorial</li>
+            <li>Conseils pour les réseaux sociaux et la présence en ligne</li>
+            <li>Mise en valeur de produits, offres et identité de marque</li>
+          </ul>
+          <a class="service-link" href="#partage">Présenter votre projet <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="service-card" id="trading-service" aria-labelledby="trading-title">
+          <p class="service-card-label">Apprentissage &amp; analyse</p>
+          <h3 id="trading-title">Trading</h3>
+          <p>Découvrez les notions de marché, l’analyse et la gestion du risque dans un cadre pédagogique, sans promesse de rendement.</p>
+          <ul class="service-list">
+            <li>Ressources éducatives pour débuter</li>
+            <li>Lecture générale des tendances et des marchés</li>
+            <li>Principes de gestion du risque et de discipline</li>
+          </ul>
+          <a class="service-link" href="#partage">Découvrir la communauté <span aria-hidden="true">→</span></a>
+          <p class="service-note">Contenu éducatif uniquement : pas de conseil financier personnalisé, de gestion de portefeuille, ni d’exécution d’ordres. Le trading comporte un risque de perte, pouvant aller jusqu’à la perte totale du capital investi.</p>
+        </article>
+        <article class="service-card" id="youtube-service" aria-labelledby="youtube-title">
+          <p class="service-card-label">Vidéo &amp; création</p>
+          <h3 id="youtube-title">YouTube</h3>
+          <p>Recherchez des vidéos sur YouTube et lisez dans ATM FOD celles dont l’intégration est autorisée.</p>
+          <button class="service-link service-link-button" type="button" data-open-youtube>Ouvrir YouTube <span aria-hidden="true">→</span></button>
+        </article>
+        <article class="service-card" id="tiktok-service" aria-labelledby="tiktok-title">
+          <p class="service-card-label">Vidéo &amp; création</p>
+          <h3 id="tiktok-title">TikTok</h3>
+          <p>Explorez le profil public @haodaagar et ses vidéos récentes directement ici, sans compte ATM FOD.</p>
+          <div class="tiktok-actions">
+            <a class="service-link" href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer">Explorer TikTok en invité <span aria-hidden="true">↗</span></a>
+            <button class="service-link service-link-button" type="button" data-open-tiktok>Voir les vidéos ici <span aria-hidden="true">→</span></button>
+          </div>
+        </article>
+        <article class="service-card" id="netflix-service" aria-labelledby="netflix-title">
+          <p class="service-card-label">Films &amp; séries</p>
+          <h3 id="netflix-title">Netflix</h3>
+          <p>Accédez au catalogue Netflix et reprenez vos films et séries depuis le site officiel.</p>
+          <a class="service-link" href="https://www.netflix.com/" target="_blank" rel="noopener noreferrer">Ouvrir Netflix <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="catalogue" id="collection" aria-labelledby="collection-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-eyebrow">La sélection du moment</p>
+          <h2 id="collection-title">À garder longtemps.</h2>
+        </div>
+        <div class="filters" id="filters" aria-label="Filtrer les produits">
+          <button class="filter-button" type="button" data-category="Tous" aria-pressed="true">Tout voir</button>
+          <button class="filter-button" type="button" data-category="Vases" aria-pressed="false">Vases</button>
+          <button class="filter-button" type="button" data-category="Luminaires" aria-pressed="false">Luminaires</button>
+          <button class="filter-button" type="button" data-category="Bougies" aria-pressed="false">Bougies</button>
+          <button class="filter-button" type="button" data-category="Objets" aria-pressed="false">Objets</button>
+        </div>
+      </div>
+      <div class="product-grid" id="product-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="community" id="partage" aria-labelledby="community-title">
+      <div class="community-heading">
+        <div>
+          <p class="section-eyebrow">Le carnet ATM FOD</p>
+          <h2 id="community-title">À vous de partager.</h2>
+        </div>
+        <p class="community-description">Publiez une trouvaille, une photo ou un document. Ajoutez votre position GPS si vous souhaitez la partager.</p>
+      </div>
+      <p class="community-privacy">Les publications et fichiers sont visibles par tous les visiteurs. Votre position précise n’est demandée qu’après votre clic et sera visible sur la carte si vous la publiez. Ne partagez pas d’informations privées.</p>
+      <form class="publication-form" id="publication-form">
+        <label class="signup-field" for="publication-text">Votre message <span style="font-weight:400">(facultatif si vous joignez un fichier)</span>
+          <textarea id="publication-text" name="message" maxlength="1000" placeholder="Qu’avez-vous envie de partager ?"></textarea>
+        </label>
+        <div class="publication-actions">
+          <input class="file-picker" id="publication-files" type="file" accept="image/*,video/*,application/pdf,audio/*,.pdf" multiple aria-label="Choisir des photos, vidéos, PDF ou fichiers audio">
+          <label class="upload-label" for="publication-files"><span class="upload-mark" aria-hidden="true">＋</span> Joindre des fichiers <span style="color:var(--muted)">· 5 fichiers, 15 Mo chacun</span></label>
+          <button class="gps-button" id="share-location" type="button"><span aria-hidden="true">⌖</span> Partager ma position GPS publiquement</button>
+          <button class="gps-clear" id="clear-location" type="button" hidden>Retirer la position</button>
+          <button class="button-primary publish-button" type="submit" disabled>Publier <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="attachment-list" id="attachment-preview" aria-live="polite"></div>
+        <p class="attachment-status" id="attachment-status" role="status" aria-live="polite"></p>
+        <p class="gps-status" id="gps-status" role="status" aria-live="polite">Le navigateur demandera l’accès après votre clic. La position sera publique uniquement si vous la publiez.</p>
+      </form>
+      <div class="feed-heading"><h3>Dernières publications</h3><span class="feed-count" id="publication-count">0 publication</span></div>
+      <p class="publication-status" id="publication-status" role="status" aria-live="polite">Connexion au fil public…</p>
+      <div class="publication-feed" id="publication-feed" aria-live="polite"><p class="feed-empty">Chargement des publications…</p></div>
+    </section>
+
+    <section class="story" id="histoire" aria-labelledby="story-title">
+      <div class="story-copy">
+        <p class="section-eyebrow">Moins, mais mieux</p>
+        <h2 id="story-title">Les objets ont une histoire. La vôtre aussi.</h2>
+        <p>On préfère les belles matières, les gestes bien faits et les choses qu’on garde. Chaque pièce est choisie pour trouver sa place chez vous, et la garder.</p>
+        <a class="text-link" href="#collection">Découvrir notre sélection <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="logo" href="#accueil" aria-label="ATM FOD, accueil">ATM <span>FOD</span></a>
+          <p>De jolis objets choisis avec intention. Pour la maison, et pour longtemps.</p>
+        </div>
+        <div class="newsletter">
+          <h2>Une lettre de temps en temps.</h2>
+          <p>Nos nouveautés, nos trouvailles. Pas plus, promis.</p>
+          <form class="newsletter-form" id="newsletter-form">
+            <input id="newsletter-email" type="email" placeholder="Votre adresse e-mail" required aria-label="Votre adresse e-mail">
+            <button type="submit" aria-label="S’inscrire à la newsletter">→</button>
+          </form>
+        </div>
+      </div>
+      <section class="social-share" aria-labelledby="social-share-title">
+        <h2 id="social-share-title">Partager ATM FOD</h2>
+        <p>WhatsApp, Facebook et Telegram ouvrent leur partage. Pour Instagram, TikTok et Messenger, le menu de partage de votre appareil proposera ces applications si elles sont disponibles.</p>
+        <div class="social-links">
+          <a class="social-link" data-share-link="whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a class="social-link" data-share-link="facebook" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a class="social-link" data-share-link="telegram" target="_blank" rel="noopener noreferrer">Telegram</a>
+          <button class="social-link" type="button" data-native-share="Messenger">Messenger</button>
+          <button class="social-link" type="button" data-native-share="Instagram">Instagram</button>
+          <button class="social-link" type="button" data-native-share="TikTok">TikTok</button>
+        </div>
+      </section>
+      <div class="footer-bottom"><span>© 2026 ATM FOD. Tous droits réservés.</span><span>Livraison · Retours · Contact · <button class="privacy-settings" id="privacy-settings" type="button">Cookies</button></span></div>
+    </div>
+  </footer>
+
+  <div class="overlay" id="cart-overlay" hidden></div>
+  <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Votre panier" aria-hidden="true">
+    <div class="drawer-heading"><h2>Votre panier <span id="drawer-count"></span></h2><button class="icon-button" id="close-cart" type="button" aria-label="Fermer le panier">×</button></div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-summary">
+      <p class="shipping-note" id="shipping-note"></p>
+      <div class="shipping-track" aria-hidden="true"><div class="shipping-progress" id="shipping-progress"></div></div>
+      <div class="subtotal"><span>Sous-total</span><strong id="cart-subtotal">0,00 €</strong></div>
+      <button class="checkout-button" id="checkout-button" type="button">Passer la commande</button>
+      <p class="checkout-caption">Frais de livraison calculés à l’étape suivante.</p>
+    </div>
+  </aside>
+
+  <dialog id="confirmation-dialog" aria-labelledby="confirmation-title">
+    <button class="icon-button dialog-close" id="close-confirmation" type="button" aria-label="Fermer">×</button>
+    <div class="confirmation-mark" aria-hidden="true">✓</div>
+    <h2 id="confirmation-title">C’est tout bon !</h2>
+    <p>Votre commande de démonstration a bien été enregistrée. Aucun paiement réel n’a été effectué.</p>
+    <button class="button-primary" id="continue-shopping" type="button">Continuer mes achats <span aria-hidden="true">→</span></button>
+  </dialog>
+  <dialog class="app-menu-dialog" id="app-menu-dialog" aria-labelledby="app-menu-title">
+    <button class="icon-button dialog-close" id="close-app-menu" type="button" aria-label="Fermer le menu">×</button>
+    <p class="section-eyebrow">ATM FOD · Raccourcis</p>
+    <h2 id="app-menu-title">Que souhaitez-vous faire ?</h2>
+    <p class="app-menu-intro">Les onze raccourcis sont réunis dans ce menu.</p>
+    <div class="app-menu-grid">
+      <button class="app-menu-item" type="button" data-shortcut="friends"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Amis</span></button>
+      <button class="app-menu-item" type="button" data-shortcut="calls"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.19 19a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72l.45 2.72a2 2 0 0 1-.57 1.69L7.7 9.38a16 16 0 0 0 6 6l1.25-1.25a2 2 0 0 1 1.69-.57l2.72.45a2 2 0 0 1 1.64 1.91Z"/></svg><span>Appels</span></button>
+      <button class="app-menu-item" type="button" data-shortcut="messages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg><span>Messages</span></button>
+      <button class="app-menu-item" type="button" data-shortcut="live"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4m-8.4 0a6 6 0 0 1 0-8.4m11.3-2.9a10 10 0 0 1 0 14.2m-14.2 0a10 10 0 0 1 0-14.2"/></svg><span>Live</span></button>
+      <button class="app-menu-item" type="button" data-shortcut="services"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 6-7"/><path d="M15 6h5v5"/></svg><span>Services · Marketing, Trading, YouTube, TikTok et Netflix</span></button>
+      <button class="app-menu-item" type="button" data-shortcut="profile"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg><span>Profil</span></button>
+      <button class="app-menu-item" type="button" data-shortcut="balance"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="15" rx="2"/><path d="M2 10h20"/><path d="M16 15h2"/></svg><span>Solde</span></button>
+      <button class="app-menu-item" type="button" data-shortcut="formation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 8 10-5 10 5-10 5L2 8Z"/><path d="M6 10v5c3.5 3 8.5 3 12 0v-5M22 8v6"/></svg><span>Formation</span></button>
+      <button class="app-menu-item" type="button" data-shortcut="location"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Localisation</span></button>
+      <button class="app-menu-item" type="button" data-shortcut="police"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg><span>Police · Urgence</span></button>
+      <button class="app-menu-item" type="button" data-shortcut="parcels"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 9-4 9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7M12 11v10M7.5 5l9 4"/></svg><span>Colis</span></button>
+    </div>
+  </dialog>
+  <dialog class="utility-dialog" id="training-dialog" aria-labelledby="training-title">
+    <button class="icon-button dialog-close" type="button" data-close-dialog="training-dialog" aria-label="Fermer la formation">×</button>
+    <p class="section-eyebrow">ATM FOD · Apprendre</p>
+    <h2 id="training-title">Formation &amp; découverte</h2>
+    <p>Un parcours d’initiation pour découvrir des notions utiles à vos projets.</p>
+    <ul>
+      <li><strong>Marketing :</strong> définir son audience, clarifier son offre et planifier ses contenus.</li>
+      <li><strong>Marchés :</strong> comprendre les notions de base et apprendre les principes de gestion du risque.</li>
+    </ul>
+    <p class="utility-note">Ces ressources sont informatives ; elles ne constituent ni un conseil financier ni une formation certifiante.</p>
+    <div class="utility-actions">
+      <a href="#marketing-service" data-close-and-navigate="marketing-service">Découvrir le marketing</a>
+      <a href="#trading-service" data-close-and-navigate="trading-service">Découvrir les marchés</a>
+    </div>
+  </dialog>
+  <dialog class="utility-dialog" id="police-dialog" aria-labelledby="police-title">
+    <button class="icon-button dialog-close" type="button" data-close-dialog="police-dialog" aria-label="Fermer les informations d’urgence">×</button>
+    <p class="section-eyebrow">Informations d’urgence</p>
+    <h2 id="police-title">Police &amp; secours</h2>
+    <p>En cas de danger immédiat, contactez directement les services d’urgence de votre pays. Cette application ne transmet pas d’appel aux secours.</p>
+    <div class="utility-actions">
+      <a href="tel:17">Police (France) · 17</a>
+      <a href="tel:112">Urgence · 112</a>
+      <a href="sms:114">Urgence par SMS (France) · 114</a>
+    </div>
+    <p class="utility-note">Les numéros affichés s’appliquent en France/Europe selon le service ; ailleurs, utilisez le numéro d’urgence local.</p>
+  </dialog>
+  <dialog class="utility-dialog" id="parcels-dialog" aria-labelledby="parcels-title">
+    <button class="icon-button dialog-close" type="button" data-close-dialog="parcels-dialog" aria-label="Fermer les informations colis">×</button>
+    <p class="section-eyebrow">ATM FOD · Livraison</p>
+    <h2 id="parcels-title">Suivi des colis</h2>
+    <p>Le suivi transporteur n’est pas encore connecté. Les commandes affichées sur ce site sont des démonstrations : aucun colis réel n’est expédié et aucun suivi n’est disponible.</p>
+    <div class="utility-actions">
+      <a href="#collection" data-close-and-navigate="collection">Voir la collection</a>
+    </div>
+  </dialog>
+  <dialog class="utility-dialog location-dialog" id="location-dialog" aria-labelledby="location-title">
+    <button class="icon-button dialog-close" type="button" data-close-dialog="location-dialog" aria-label="Fermer la carte">×</button>
+    <p class="section-eyebrow">ATM FOD · Carte</p>
+    <h2 id="location-title">Localisation</h2>
+    <p>Suivez votre position en direct sur Google Maps. Autorisez la localisation après avoir lancé le suivi.</p>
+    <p class="location-status" id="location-map-status" role="status" aria-live="polite">Cliquez sur « Démarrer le suivi » et autorisez la localisation dans votre navigateur.</p>
+    <div class="location-map" id="location-map-frame" role="region" aria-label="Carte Google Maps avec votre position" hidden>
+      <iframe id="location-map" title="Carte Google Maps de votre position en direct" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+    <div class="utility-actions location-actions">
+      <button type="button" id="locate-on-map">⌖ Démarrer le suivi</button>
+      <a class="location-open-link" id="open-location-map" target="_blank" rel="noopener noreferrer" hidden>Ouvrir dans Google Maps ↗</a>
+    </div>
+    <p class="utility-note">Votre position n’est pas publiée sur ATM FOD. Les coordonnées sont transmises à Google Maps pour afficher et actualiser la carte. Le partage dans une publication reste séparé.</p>
+  </dialog>
+  <dialog class="services-dialog" id="services-dialog" aria-labelledby="services-dialog-title">
+    <button class="icon-button dialog-close" id="close-services" type="button" aria-label="Fermer les services">×</button>
+    <p class="section-eyebrow">ATM FOD · Services</p>
+    <h2 id="services-dialog-title">Que souhaitez-vous découvrir ?</h2>
+    <p class="services-dialog-intro">Retrouvez les services et plateformes vidéo depuis cette icône.</p>
+    <div class="services-menu">
+      <button class="services-menu-link" type="button" data-open-service="marketing-service">
+        <strong>Marketing</strong>
+        <span>Stratégie de contenu, réseaux sociaux et mise en valeur de votre activité.</span>
+      </button>
+      <button class="services-menu-link" type="button" data-open-service="trading-service">
+        <strong>Trading</strong>
+        <span>Ressources éducatives sur les marchés et la gestion du risque. Aucun conseil financier ni passage d’ordres.</span>
+      </button>
+      <button class="services-menu-link" type="button" data-open-youtube>
+        <strong>YouTube</strong>
+        <span>Rechercher des vidéos et lire les vidéos compatibles avec l’intégration.</span>
+      </button>
+      <a class="services-menu-link" href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer">
+        <strong>TikTok</strong>
+        <span>Voir le profil public @haodaagar et ses vidéos récentes.</span>
+      </a>
+      <a class="services-menu-link" href="https://www.netflix.com/" target="_blank" rel="noopener noreferrer">
+        <strong>Netflix</strong>
+        <span>Films et séries sur le site officiel. Un compte et un abonnement Netflix peuvent être nécessaires.</span>
+      </a>
+    </div>
+  </dialog>
+  <dialog class="youtube-dialog" id="youtube-dialog" aria-labelledby="youtube-dialog-title">
+    <button class="icon-button dialog-close" id="close-youtube" type="button" aria-label="Fermer YouTube">×</button>
+    <p class="section-eyebrow">ATM FOD · Vidéo</p>
+    <h2 id="youtube-dialog-title">YouTube</h2>
+    <div class="youtube-tools">
+      <form id="youtube-search-form">
+        <label for="youtube-search">Rechercher sur YouTube</label>
+        <div class="youtube-tool-row">
+          <input id="youtube-search" type="search" maxlength="160" placeholder="Ex. musique, tutoriel..." required>
+          <button type="submit">Chercher</button>
+        </div>
+      </form>
+      <form id="youtube-play-form">
+        <label for="youtube-video-input">Lien ou identifiant de vidéo</label>
+        <div class="youtube-tool-row">
+          <input id="youtube-video-input" type="text" maxlength="2048" placeholder="https://youtu.be/..." autocomplete="url" required>
+          <button type="submit">Lire ici</button>
+        </div>
+      </form>
+    </div>
+    <p class="youtube-status" id="youtube-search-status" aria-live="polite"></p>
+    <div class="youtube-results" id="youtube-results" aria-label="Résultats YouTube"></div>
+    <p class="youtube-status" id="youtube-playback-status" aria-live="polite">Certaines vidéos désactivent la lecture intégrée et doivent être ouvertes sur YouTube.</p>
+    <div class="youtube-frame">
+      <iframe id="youtube-player" title="Lecteur vidéo YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </dialog>
+  <dialog class="tiktok-dialog" id="tiktok-dialog" aria-labelledby="tiktok-dialog-title">
+    <button class="icon-button dialog-close" id="close-tiktok" type="button" aria-label="Fermer TikTok">×</button>
+    <p class="section-eyebrow">ATM FOD · Vidéo</p>
+    <h2 id="tiktok-dialog-title">TikTok</h2>
+    <p class="youtube-status" id="tiktok-playback-status" aria-live="polite">Chargement des vidéos publiques de @haodaagar…</p>
+    <div class="tiktok-frame" id="tiktok-frame">
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@haodaagar" data-unique-id="haodaagar" data-embed-type="creator" style="max-width: 720px; min-width: 288px;">
+        <section><a target="_blank" rel="noopener noreferrer" href="https://www.tiktok.com/@haodaagar?refer=creator_embed">@haodaagar</a></section>
+      </blockquote>
+    </div>
+    <a class="tiktok-open-link" href="https://www.tiktok.com/@haodaagar" target="_blank" rel="noopener noreferrer">Ouvrir @haodaagar sur TikTok ↗</a>
+  </dialog>
+  <dialog class="signup-dialog" id="signup-dialog" aria-labelledby="signup-title">
+    <button class="icon-button dialog-close" id="close-signup" type="button" aria-label="Fermer l’inscription">×</button>
+    <p class="section-eyebrow">ATM FOD · Votre espace</p>
+    <h2 id="signup-title">Créer votre profil.</h2>
+    <p class="signup-intro">Dites-nous qui vous êtes pour commencer.</p>
+    <form class="signup-form" id="signup-form">
+      <label class="signup-field" for="profile-name">Nom complet
+        <input id="profile-name" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Votre nom" required>
+      </label>
+      <label class="signup-field" for="profile-email">Adresse e-mail
+        <input id="profile-email" name="email" type="email" autocomplete="email" maxlength="160" placeholder="vous@exemple.fr" required>
+      </label>
+      <label class="signup-field" for="profile-role">Votre profil
+        <select id="profile-role" name="role" required>
+          <option value="acheteur">Acheteur</option>
+          <option value="vendeur">Vendeur</option>
+          <option value="visiteur">Visiteur</option>
+          <option value="livreur">Livreur</option>
+          <option value="chauffeur">Chauffeur</option>
+        </select>
+      </label>
+      <label class="signup-field signup-extra" id="shop-field" for="profile-shop" hidden>Nom de votre boutique
+        <input id="profile-shop" name="shop" type="text" maxlength="80" placeholder="Nom de l’enseigne">
+      </label>
+      <label class="signup-field signup-extra" id="vehicle-field" for="profile-vehicle" hidden>Votre véhicule
+        <select id="profile-vehicle" name="vehicle">
+          <option value="velo">Vélo</option>
+          <option value="scooter">Scooter</option>
+          <option value="voiture">Voiture</option>
+          <option value="utilitaire">Utilitaire</option>
+          <option value="autre">Autre</option>
+        </select>
+      </label>
+      <button class="button-primary signup-submit" id="signup-submit" type="submit">Enregistrer mon profil <span aria-hidden="true">→</span></button>
+    </form>
+    <p class="signup-status" id="signup-status" role="status" aria-live="polite"></p>
+    <p class="profile-note">Prototype : le profil est enregistré uniquement dans ce navigateur. Aucun mot de passe n’est demandé. La création de vrais comptes nécessite un serveur sécurisé.</p>
+  </dialog>
+  <dialog class="signup-dialog" id="balance-dialog" aria-labelledby="balance-title">
+    <button class="icon-button dialog-close" id="close-balance" type="button" aria-label="Fermer le solde">×</button>
+    <p class="section-eyebrow">ATM FOD · Compte</p>
+    <h2 id="balance-title">Votre solde.</h2>
+    <p class="signup-intro">Solde disponible : <strong>0,00 €</strong></p>
+    <p class="profile-note">Aucun moyen de paiement ni portefeuille n’est connecté. Ce montant est informatif : aucun dépôt, transfert ou retrait réel n’est possible pour le moment.</p>
+  </dialog>
+  <aside class="analytics-consent" id="analytics-consent" aria-label="Préférences de confidentialité" hidden>
+    <div class="analytics-copy">
+      <strong>Vos choix, vos données.</strong>
+      <p>Avec votre accord, Google Analytics mesure les visites pour améliorer ATM FOD. Vous pouvez refuser ou modifier votre choix à tout moment. Aucune statistique n’est activée avant votre accord.</p>
+    </div>
+    <div class="analytics-actions">
+      <button id="reject-analytics" type="button">Refuser</button>
+      <button class="button-primary" id="accept-analytics" type="button">Accepter les statistiques</button>
+    </div>
+  </aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div id="chat-widget" class="chat-widget">
+    <button id="chat-toggle" class="chat-toggle">💬</button>
+    <div id="chat-window" class="chat-window" hidden>
+      <div class="chat-header">Discussion <button id="video-call-btn" style="background:none; border:none; color:white; cursor:pointer;">📹</button></div>
+      <div id="chat-messages" class="chat-messages"></div>
+      <div id="user-list" style="padding:10px; border-top:1px solid #ccc; font-size:11px;">
+        <strong>En ligne (<span id="online-user-count">0</span>)</strong>
+        <ul id="online-users" style="list-style:none; padding:0;"></ul>
+      </div>
+      <form id="chat-form" class="chat-compose">
+        <input id="chat-input" class="chat-input" type="text" maxlength="1000" placeholder="Écrire un message..." aria-label="Écrire un message">
+        <button type="submit" aria-label="Envoyer le message">➤</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="video-container" class="video-container" hidden>
+    <video id="remote-video" autoplay playsinline style="width:100%; background:black;"></video>
+    <video id="local-video" autoplay playsinline muted style="position:absolute; bottom:10px; right:10px; width:80px;"></video>
+    <button id="end-call-btn">Fin</button>
+  </div>
+
+    <!-- Notification d'appel -->
+    <div id="incoming-call-box" class="incoming-call-box" hidden>
+        <p id="caller-name"></p>
+        <button id="accept-call-btn" class="button-primary">Répondre</button>
+        <button id="decline-call-btn" style="background:red; color:white; border:none;">Refuser</button>
+    </div>
+
+  <style>
+    .chat-widget { position: fixed; z-index: 10; bottom: 20px; right: 20px; }
+    .chat-toggle { width: 50px; height: 50px; border-radius: 50%; background: var(--leaf); border: none; font-size: 20px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .chat-window { width: 300px; height: 400px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 10px; }
+    .chat-window[hidden] { display: none; }
+    .chat-header { padding: 15px; background: var(--ink); color: white; font-weight: 600; font-size: 14px; }
+    .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+    .chat-msg { font-size: 12px; padding: 6px 10px; border-radius: 4px; background: #eeede6; width: fit-content; }
+    .online-user { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 32px; border-bottom: 1px solid var(--line); }
+    .online-user-state { color: var(--muted); font-size: 9px; }
+    .online-call-button { width: 30px; height: 30px; border: 0; border-radius: 50%; background: var(--leaf); }
+    .chat-compose { display: flex; border-top: 1px solid var(--line); }
+    .chat-input { flex: 1; min-width: 0; padding: 12px; border: none; outline: none; font-size: 12px; }
+    .chat-compose button { width: 44px; border: 0; background: var(--leaf); font-size: 18px; }
+    .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 200; background: black; align-items: center; justify-content: center; }
+    .video-container:not([hidden]) { display: flex; }
+    #end-call-btn { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); padding: 10px 20px; background: red; color: white; border: none; }
+    .incoming-call-box { position: fixed; z-index: 300; top: 20px; left: 50%; transform: translateX(-50%); background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: center; }
+  </style>
+
+  <script>
+    const shareUrl = `${location.origin}${location.pathname}`;
+    const shareText = "Découvrez ATM FOD — de jolis objets choisis avec intention.";
+    const encodedShareUrl = encodeURIComponent(shareUrl);
+    const encodedShareText = encodeURIComponent(shareText);
+    document.querySelector('[data-share-link="whatsapp"]').href = `https://wa.me/?text=${encodedShareText}%20${encodedShareUrl}`;
+    document.querySelector('[data-share-link="facebook"]').href = `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}`;
+    document.querySelector('[data-share-link="telegram"]').href = `https://t.me/share/url?url=${encodedShareUrl}&text=${encodedShareText}`;
+
+    let shareToastTimer;
+    function showShareToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      clearTimeout(shareToastTimer);
+      shareToastTimer = setTimeout(() => toast.classList.remove("visible"), 3000);
+    }
+
+    document.querySelectorAll("[data-native-share]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        if (typeof navigator.share === "function") {
+          try {
+            await navigator.share({ title: "ATM FOD", text: shareText, url: shareUrl });
+          } catch (error) {
+            if (error.name !== "AbortError") showShareToast(`Le partage a échoué : ${error.message}`);
+          }
+          return;
+        }
+
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          showShareToast(`Lien copié. Collez-le dans ${button.dataset.nativeShare}.`);
+        } catch (error) {
+          console.error("Impossible de copier le lien de partage:", error);
+          window.prompt(`Copiez ce lien et partagez-le dans ${button.dataset.nativeShare} :`, shareUrl);
+        }
+      });
+    });
+  </script>
+  <script src="/peerjs-client.js"></script>
+  <script>
+    const products = [
+      { id: "vase-soleil", name: "Assiette Soleil", detail: "Céramique artisanale · Sable", category: "Objets", price: 42, label: "Fait main", image: "photo-1578749556568-bc2c40e68b61" },
+      { id: "lampe-nuage", name: "Lampe Nuage", detail: "Verre opalin · Écru", category: "Luminaires", price: 89, label: "Coup de cœur", image: "photo-1507473885765-e6ed057f782c" },
+      { id: "bougie-lentement", name: "Bougie Lentement", detail: "Cire végétale · Figue", category: "Bougies", price: 24, label: "Petite série", image: "photo-1603006905003-be475563bc59" },
+      { id: "plateau-rive", name: "Bol Rive", detail: "Céramique · Bleu profond", category: "Objets", price: 36, label: "Petite série", image: "photo-1603199506016-b9a594b593c0" },
+      { id: "vase-ondine", name: "Plaid Ondine", detail: "Coton lavé · Vert mousse", category: "Objets", price: 54, label: "Textile naturel", image: "photo-1578500494198-246f612d3b3d" },
+      { id: "applique-lune", name: "Applique Lune", detail: "Laiton brossé · Doré", category: "Luminaires", price: 112, label: "Fait pour durer", image: "photo-1618221195710-dd6b41faaea6" },
+      { id: "bougie-escale", name: "Bougie Escale", detail: "Cire de soja · Bois blond", category: "Bougies", price: 29, label: "Cire végétale", image: "photo-1602874801007-bd458bb1b8b6" },
+      { id: "soliflore-aube", name: "Vase Aube", detail: "Grès chamotté · Crème", category: "Vases", price: 32, label: "Fait main", image: "photo-1490312278390-ab64016e0aa9" }
+    ];
+
+    const currency = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" });
+    const grid = document.getElementById("product-grid");
+    const searchInput = document.getElementById("search-input");
+    const drawer = document.getElementById("cart-drawer");
+    const overlay = document.getElementById("cart-overlay");
+    const cartItems = document.getElementById("cart-items");
+    const publicationForm = document.getElementById("publication-form");
+    const publicationFilesInput = document.getElementById("publication-files");
+    const freeShipping = 80;
+    const profileStorageKey = "atm-fod-profile";
+    const analyticsConsentKey = "atm-fod-analytics-consent";
+    const ownedPostsStorageKey = "atm-fod-owned-posts";
+    const presenceStorageKey = "atm-fod-client-id";
+    const supportedRoles = ["acheteur", "vendeur", "visiteur", "livreur", "chauffeur"];
+    const roleLabels = { acheteur: "Acheteur", vendeur: "Vendeur", visiteur: "Visiteur", livreur: "Livreur", chauffeur: "Chauffeur" };
+    const clientInstanceId = (() => {
+      try {
+        const storedId = localStorage.getItem(presenceStorageKey);
+        if (storedId && /^[a-zA-Z0-9-]{1,64}$/.test(storedId)) return storedId;
+        const newId = crypto.randomUUID();
+        localStorage.setItem(presenceStorageKey, newId);
+        return newId;
+      } catch {
+        return crypto.randomUUID();
+      }
+    })();
+    let activeCategory = "Tous";
+    let cart = {};
+    let toastTimer;
+    let profile = null;
+    let pendingAttachments = [];
+    let pendingLocation = null;
+    let publications = [];
+    let ownedPostTokens = new Map();
+
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatWindow = document.getElementById('chat-window');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    const videoCallBtn = document.getElementById('video-call-btn');
+    const videoContainer = document.getElementById('video-container');
+    const remoteVideo = document.getElementById('remote-video');
+    const localVideo = document.getElementById('local-video');
+    const endCallBtn = document.getElementById('end-call-btn');
+
+    const incomingCallBox = document.getElementById('incoming-call-box');
+    const callerName = document.getElementById('caller-name');
+    const acceptCallBtn = document.getElementById('accept-call-btn');
+    const declineCallBtn = document.getElementById('decline-call-btn');
+    let incomingCall = null;
+    let currentCall = null;
+    let localStream = null;
+
+    let myPeerId = null;
+    const presencePayload = () => ({
+      clientId: clientInstanceId,
+      name: profile?.name || "Visiteur",
+      peerId: myPeerId
+    });
+    const announcePresence = () => {
+      if (socket.connected) socket.emit("user connected", presencePayload());
+    };
+    let peer = null;
+    try {
+      if (typeof Peer === "function") {
+        peer = new Peer({
+          host: location.hostname,
+          port: location.port ? Number(location.port) : (location.protocol === "https:" ? 443 : 80),
+          path: '/peerjs',
+          secure: location.protocol === "https:"
+        });
+        peer.on('open', (id) => {
+          myPeerId = id;
+          announcePresence();
+        });
+        peer.on('error', (error) => {
+          console.error("PeerJS error:", error);
+          showToast("La vidéo est indisponible pour le moment.");
+        });
+        peer.on('call', (call) => {
+          incomingCall = call;
+          callerName.textContent = `${call.metadata.callerName} vous appelle...`;
+          incomingCallBox.hidden = false;
+        });
+      } else {
+        console.error("Le client PeerJS n’a pas pu être chargé.");
+      }
+    } catch (error) {
+      console.error("Impossible d’initialiser les appels vidéo:", error);
+    }
+
+    const onlineUsers = document.getElementById("online-users");
+    const onlineUserCount = document.getElementById("online-user-count");
+    const quickOnlineCount = document.getElementById("quick-online-count");
+    function renderOnlineUsers(users) {
+      onlineUserCount.textContent = String(users.length);
+      quickOnlineCount.textContent = socket.connected ? `${users.length} en ligne` : "Hors ligne";
+      quickOnlineCount.classList.toggle("disconnected", !socket.connected);
+      if (!users.length) {
+        const empty = document.createElement("li");
+        empty.textContent = socket.connected ? "Personne d’autre n’est en ligne pour le moment." : "Connexion au service en cours…";
+        onlineUsers.replaceChildren(empty);
+        return;
+      }
+
+      onlineUsers.replaceChildren(...users.map((user) => {
+        const item = document.createElement("li");
+        item.className = "online-user";
+        const name = document.createElement("span");
+        name.textContent = user.name || "Visiteur";
+        item.append(name);
+
+        if (user.clientId === clientInstanceId) {
+          const selfLabel = document.createElement("span");
+          selfLabel.className = "online-user-state";
+          selfLabel.textContent = "Vous";
+          item.append(selfLabel);
+        } else if (user.peerId) {
+          const callButton = document.createElement("button");
+          callButton.className = "online-call-button";
+          callButton.type = "button";
+          callButton.dataset.callPeer = user.peerId;
+          callButton.dataset.callName = user.name;
+          callButton.setAttribute("aria-label", `Appeler ${user.name}`);
+          callButton.textContent = "📞";
+          item.append(callButton);
+        } else {
+          const status = document.createElement("span");
+          status.className = "online-user-state";
+          status.textContent = "En ligne";
+          item.append(status);
+        }
+        return item;
+      }));
+    }
+
+    socket.on("connect", announcePresence);
+    socket.on("disconnect", () => renderOnlineUsers([]));
+    socket.on("update user list", (users) => {
+      renderOnlineUsers(Array.isArray(users) ? users : []);
+    });
+
+    videoCallBtn.addEventListener('click', () => {
+      chatWindow.hidden = false;
+      document.getElementById("user-list").scrollIntoView({ block: "nearest" });
+    });
+
+    onlineUsers.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-call-peer]");
+      if (!button) return;
+      startCall(button.dataset.callPeer, button.dataset.callName);
+    });
+
+    async function startCall(targetId, targetName) {
+      if (!peer?.open) {
+        showToast("Le service d’appel n’est pas encore connecté.");
+        return;
+      }
+      try {
+        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        localVideo.srcObject = localStream;
+        currentCall = peer.call(targetId, localStream, { metadata: { callerName: profile?.name || "Visiteur" } });
+        setupCallListeners();
+      } catch (error) {
+        console.error("Impossible de démarrer l’appel vidéo:", error);
+        showToast("Autorisez la caméra et le micro pour démarrer l’appel.");
+      }
+    }
+
+    acceptCallBtn.addEventListener('click', async () => {
+      if (!incomingCall) return;
+      incomingCallBox.hidden = true;
+      try {
+        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        localVideo.srcObject = localStream;
+        incomingCall.answer(localStream);
+        currentCall = incomingCall;
+        setupCallListeners();
+      } catch (error) {
+        console.error("Impossible d’accepter l’appel vidéo:", error);
+        showToast("Autorisez la caméra et le micro pour accepter l’appel.");
+      }
+    });
+
+    declineCallBtn.addEventListener('click', () => {
+        incomingCallBox.hidden = true;
+        incomingCall.close();
+    });
+
+    function setupCallListeners() {
+      videoContainer.hidden = false;
+      currentCall.on('stream', (stream) => {
+        remoteVideo.srcObject = stream;
+      });
+      currentCall.on('close', closeVideoCall);
+    }
+
+    endCallBtn.addEventListener('click', () => {
+      currentCall?.close();
+      closeVideoCall();
+    });
+
+    function closeVideoCall() {
+      videoContainer.hidden = true;
+      remoteVideo.srcObject = null;
+      localVideo.srcObject = null;
+      localStream?.getTracks().forEach((track) => track.stop());
+      localStream = null;
+      currentCall = null;
+    }
+
+    chatToggle.addEventListener('click', () => {
+      chatWindow.hidden = !chatWindow.hidden;
+    });
+
+    const appMenuDialog = document.getElementById("app-menu-dialog");
+    document.getElementById("open-app-menu").addEventListener("click", () => appMenuDialog.showModal());
+    document.getElementById("close-app-menu").addEventListener("click", () => appMenuDialog.close());
+
+    document.querySelectorAll("[data-shortcut]").forEach((button) => {
+      button.addEventListener("click", () => {
+        appMenuDialog.close();
+        switch (button.dataset.shortcut) {
+          case "friends":
+          case "calls":
+            chatWindow.hidden = false;
+            document.getElementById("user-list").scrollIntoView({ block: "nearest" });
+            if (button.dataset.shortcut === "calls") showToast("Choisissez une personne en ligne pour l’appeler.");
+            break;
+          case "messages":
+            chatWindow.hidden = false;
+            chatInput.focus();
+            break;
+          case "live":
+            document.getElementById("partage").scrollIntoView({ behavior: "smooth" });
+            document.getElementById("publication-status").textContent = "Le fil se met à jour en direct pour les visiteurs connectés.";
+            break;
+          case "services":
+            document.getElementById("services-dialog").showModal();
+            break;
+          case "profile":
+            openProfileDialog();
+            break;
+          case "balance":
+            document.getElementById("balance-dialog").showModal();
+            break;
+          case "formation":
+            document.getElementById("training-dialog").showModal();
+            break;
+          case "location": {
+            document.getElementById("location-dialog").showModal();
+            break;
+          }
+          case "police":
+            document.getElementById("police-dialog").showModal();
+            break;
+          case "parcels":
+            document.getElementById("parcels-dialog").showModal();
+            break;
+        }
+      });
+    });
+    document.querySelectorAll("[data-close-dialog]").forEach((button) => {
+      button.addEventListener("click", () => document.getElementById(button.dataset.closeDialog).close());
+    });
+    const locationDialog = document.getElementById("location-dialog");
+    const locationButton = document.getElementById("locate-on-map");
+    const locationStatus = document.getElementById("location-map-status");
+    const locationMapFrame = document.getElementById("location-map-frame");
+    const locationMap = document.getElementById("location-map");
+    const openLocationMap = document.getElementById("open-location-map");
+    let locationWatchId = null;
+    let latestLocationCoordinates = "";
+    let lastMapRefresh = 0;
+    let mapRefreshTimer = null;
+
+    function stopLocationWatch(message) {
+      if (locationWatchId !== null) navigator.geolocation.clearWatch(locationWatchId);
+      locationWatchId = null;
+      if (mapRefreshTimer !== null) {
+        clearTimeout(mapRefreshTimer);
+        mapRefreshTimer = null;
+      }
+      locationButton.textContent = "⌖ Démarrer le suivi";
+      if (message) locationStatus.textContent = message;
+    }
+
+    function scheduleMapRefresh() {
+      if (mapRefreshTimer !== null) return;
+      const delay = Math.max(0, 5000 - (Date.now() - lastMapRefresh));
+      mapRefreshTimer = setTimeout(() => {
+        const mapParameters = new URLSearchParams({ q: latestLocationCoordinates, z: "16", output: "embed" });
+        locationMap.src = `https://maps.google.com/maps?${mapParameters}`;
+        lastMapRefresh = Date.now();
+        mapRefreshTimer = null;
+      }, delay);
+    }
+
+    locationDialog.addEventListener("close", () => stopLocationWatch("Suivi arrêté."));
+    locationButton.addEventListener("click", () => {
+      if (locationWatchId !== null) {
+        stopLocationWatch("Suivi arrêté.");
+        return;
+      }
+      if (!window.isSecureContext) {
+        locationStatus.textContent = "La localisation est bloquée sur une page non sécurisée. Ouvrez le site en HTTPS ou sur localhost.";
+        return;
+      }
+      if (!navigator.geolocation) {
+        locationStatus.textContent = "Ce navigateur ne prend pas en charge la géolocalisation.";
+        return;
+      }
+      locationButton.textContent = "Arrêter le suivi";
+      locationStatus.textContent = "En attente de votre position… Vérifiez que la localisation est activée sur votre appareil.";
+      locationWatchId = navigator.geolocation.watchPosition((position) => {
+        const { latitude, longitude, accuracy } = position.coords;
+        latestLocationCoordinates = `${latitude},${longitude}`;
+        const searchParameters = new URLSearchParams({ api: "1", query: latestLocationCoordinates });
+        openLocationMap.href = `https://www.google.com/maps/search/?${searchParameters}`;
+        openLocationMap.hidden = false;
+        locationMapFrame.hidden = false;
+        scheduleMapRefresh();
+        locationStatus.textContent = `Position actualisée · précision estimée ±${Math.round(accuracy)} m. Le suivi continue jusqu’à son arrêt ou à la fermeture de cette fenêtre.`;
+      }, (error) => {
+        if (error.code === 1) {
+          stopLocationWatch("Accès refusé. Autorisez la localisation pour ce site dans les paramètres du navigateur, puis relancez le suivi.");
+        } else if (error.code === 3) {
+          locationStatus.textContent = "La position tarde à arriver. Activez les services de localisation et attendez un meilleur signal ; le suivi reste actif.";
+        } else {
+          locationStatus.textContent = "Position indisponible. Vérifiez que les services de localisation de l’appareil sont activés ; le suivi reste actif.";
+        }
+      }, { enableHighAccuracy: true, timeout: 30000, maximumAge: 0 });
+    });
+    document.querySelectorAll("[data-close-and-navigate]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const target = document.getElementById(link.dataset.closeAndNavigate);
+        link.closest("dialog").close();
+        history.replaceState(null, "", `#${target.id}`);
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+    document.getElementById("close-services").addEventListener("click", () => document.getElementById("services-dialog").close());
+    const youtubeDialog = document.getElementById("youtube-dialog");
+    const youtubePlayer = document.getElementById("youtube-player");
+    const youtubeVideoInput = document.getElementById("youtube-video-input");
+    const youtubePlaybackStatus = document.getElementById("youtube-playback-status");
+    const youtubeSearchStatus = document.getElementById("youtube-search-status");
+    const youtubeResults = document.getElementById("youtube-results");
+    document.querySelectorAll("[data-open-youtube]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.getElementById("services-dialog").close();
+        youtubeDialog.showModal();
+        youtubeVideoInput.focus();
+      });
+    });
+    document.getElementById("close-youtube").addEventListener("click", () => youtubeDialog.close());
+    youtubeDialog.addEventListener("close", () => {
+      youtubePlayer.removeAttribute("src");
+      youtubePlaybackStatus.textContent = "Certaines vidéos désactivent la lecture intégrée et doivent être ouvertes sur YouTube.";
+      youtubeVideoInput.value = "";
+      document.getElementById("youtube-search").value = "";
+      youtubeSearchStatus.textContent = "";
+      youtubeResults.replaceChildren();
+    });
+    document.getElementById("youtube-search-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const query = document.getElementById("youtube-search").value.trim();
+      if (!query) return;
+      const submitButton = event.currentTarget.querySelector("button[type=submit]");
+      submitButton.disabled = true;
+      youtubeSearchStatus.textContent = "Recherche en cours…";
+      youtubeResults.replaceChildren();
+      fetch(`/api/youtube/search?q=${encodeURIComponent(query)}`)
+        .then(async (response) => {
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.error || "La recherche YouTube a échoué.");
+          return result;
+        })
+        .then((result) => {
+          const videos = Array.isArray(result.videos) ? result.videos : [];
+          if (!videos.length) {
+            youtubeSearchStatus.textContent = "Aucune vidéo trouvée.";
+            return;
+          }
+          videos.forEach((video) => {
+            const resultButton = document.createElement("button");
+            resultButton.className = "youtube-result";
+            resultButton.type = "button";
+            resultButton.setAttribute("aria-label", `Lire ${video.title}`);
+            if (video.thumbnail) {
+              const thumbnail = document.createElement("img");
+              thumbnail.src = video.thumbnail;
+              thumbnail.alt = "";
+              thumbnail.loading = "lazy";
+              resultButton.append(thumbnail);
+            }
+            const copy = document.createElement("span");
+            copy.className = "youtube-result-copy";
+            const title = document.createElement("strong");
+            title.textContent = video.title;
+            const channel = document.createElement("span");
+            channel.textContent = video.channelTitle;
+            copy.append(title, channel);
+            resultButton.append(copy);
+            resultButton.addEventListener("click", () => {
+              youtubeVideoInput.value = video.id;
+              document.getElementById("youtube-play-form").requestSubmit();
+            });
+            youtubeResults.append(resultButton);
+          });
+          youtubeSearchStatus.textContent = `${videos.length} vidéo${videos.length > 1 ? "s" : ""} trouvée${videos.length > 1 ? "s" : ""}.`;
+        })
+        .catch((error) => {
+          youtubeSearchStatus.textContent = error.message || "La recherche YouTube est temporairement indisponible.";
+        })
+        .finally(() => {
+          submitButton.disabled = false;
+        });
+    });
+    document.getElementById("youtube-play-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const videoId = getYouTubeVideoId(youtubeVideoInput.value);
+      if (!videoId) {
+        youtubePlayer.removeAttribute("src");
+        youtubePlaybackStatus.textContent = "Saisissez un identifiant vidéo de 11 caractères ou un lien YouTube valide.";
+        return;
+      }
+      youtubePlaybackStatus.textContent = "";
+      youtubePlayer.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+    });
+    const tiktokDialog = document.getElementById("tiktok-dialog");
+    const tiktokPlaybackStatus = document.getElementById("tiktok-playback-status");
+    let tiktokEmbedTimeout;
+    document.querySelectorAll("[data-open-tiktok]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.getElementById("services-dialog").close();
+        tiktokDialog.showModal();
+        clearTimeout(tiktokEmbedTimeout);
+        tiktokPlaybackStatus.textContent = "Chargement des vidéos publiques de @haodaagar…";
+        if (!document.getElementById("tiktok-embed-script")) {
+          const script = document.createElement("script");
+          script.id = "tiktok-embed-script";
+          script.src = "https://www.tiktok.com/embed.js";
+          script.async = true;
+          script.onerror = () => {
+            tiktokPlaybackStatus.textContent = "Le profil TikTok n’a pas pu se charger. Vous pouvez l’ouvrir directement sur TikTok.";
+          };
+          document.body.append(script);
+        }
+        tiktokEmbedTimeout = setTimeout(() => {
+          const renderedFrames = [...document.querySelectorAll(".tiktok-embed iframe")]
+            .filter((frame) => frame.getBoundingClientRect().width > 0 && frame.getBoundingClientRect().height > 0);
+          if (!renderedFrames.length) {
+            tiktokPlaybackStatus.textContent = "TikTok ne répond pas pour le moment. Ouvrez le profil directement sur TikTok.";
+          }
+        }, 15000);
+      });
+    });
+    document.getElementById("close-tiktok").addEventListener("click", () => tiktokDialog.close());
+    tiktokDialog.addEventListener("close", () => {
+      clearTimeout(tiktokEmbedTimeout);
+      tiktokPlaybackStatus.textContent = "Chargement des vidéos publiques de @haodaagar…";
+    });
+    document.querySelectorAll("[data-open-service]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const service = document.getElementById(button.dataset.openService);
+        document.getElementById("services-dialog").close();
+        history.replaceState(null, "", `#${service.id}`);
+        service.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+    document.getElementById("close-balance").addEventListener("click", () => document.getElementById("balance-dialog").close());
+
+    function getYouTubeVideoId(value) {
+      const input = value.trim();
+      if (/^[A-Za-z0-9_-]{11}$/.test(input)) return input;
+      let url;
+      try {
+        url = new URL(input);
+      } catch {
+        return null;
+      }
+      const host = url.hostname.toLowerCase();
+      if (!["youtu.be", "youtube.com", "www.youtube.com", "m.youtube.com", "www.youtube-nocookie.com"].includes(host)) return null;
+      const videoId = host === "youtu.be"
+        ? url.pathname.split("/")[1]
+        : url.pathname === "/watch"
+          ? url.searchParams.get("v")
+          : url.pathname.match(/^\/(?:embed|shorts|live)\/([A-Za-z0-9_-]{11})\/?$/)?.[1];
+      return videoId && /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : null;
+    }
+
+    document.getElementById("chat-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const message = chatInput.value.trim();
+      if (!message) return;
+      if (!socket.connected) {
+        showToast("Le chat est déconnecté. Réessayez dans un instant.");
+        return;
+      }
+      socket.emit("chat message", message);
+      chatInput.value = "";
+    });
+
+    socket.on('chat message', (data) => {
+      const div = document.createElement('div');
+      div.className = 'chat-msg';
+      div.textContent = `${data.user}: ${data.msg}`;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+    socket.on("publications updated", () => {
+      loadPublications();
+    });
+
+    const analyticsConsent = document.getElementById("analytics-consent");
+    function updateAnalyticsConsent() {
+      try {
+        analyticsConsent.hidden = localStorage.getItem(analyticsConsentKey) !== null;
+      } catch {
+        analyticsConsent.hidden = false;
+      }
+    }
+
+    document.getElementById("accept-analytics").addEventListener("click", async () => {
+      localStorage.setItem(analyticsConsentKey, "accepted");
+      analyticsConsent.hidden = true;
+      if (window.atmFirebase) await window.atmFirebase.enableAnalytics();
+    });
+
+    document.getElementById("reject-analytics").addEventListener("click", () => {
+      localStorage.setItem(analyticsConsentKey, "rejected");
+      analyticsConsent.hidden = true;
+      window.atmFirebase?.disableAnalytics();
+    });
+
+    document.getElementById("privacy-settings").addEventListener("click", () => {
+      localStorage.removeItem(analyticsConsentKey);
+      analyticsConsent.hidden = false;
+    });
+
+    window.addEventListener("atm-firebase-ready", () => {
+      if (localStorage.getItem(analyticsConsentKey) === "accepted") window.atmFirebase.enableAnalytics();
+    });
+
+    updateAnalyticsConsent();
+
+    try {
+      const savedTokens = JSON.parse(sessionStorage.getItem(ownedPostsStorageKey) || "[]");
+      if (Array.isArray(savedTokens)) ownedPostTokens = new Map(savedTokens.filter(([id, token]) => typeof id === "string" && typeof token === "string"));
+    } catch {
+      ownedPostTokens = new Map();
+    }
+
+    try {
+      const savedProfile = JSON.parse(localStorage.getItem(profileStorageKey) || "null");
+      if (savedProfile && typeof savedProfile === "object" && supportedRoles.includes(savedProfile.role)) profile = savedProfile;
+    } catch {
+      profile = null;
+    }
+
+    try {
+      const savedCart = JSON.parse(localStorage.getItem("atm-fod-cart") || "{}");
+      if (savedCart && typeof savedCart === "object" && !Array.isArray(savedCart)) {
+        cart = Object.fromEntries(Object.entries(savedCart).filter(([id, quantity]) => products.some((product) => product.id === id) && Number.isInteger(quantity) && quantity > 0));
+      }
+    } catch {
+      cart = {};
+    }
+
+    function renderProducts() {
+      const query = searchInput.value.trim().toLocaleLowerCase("fr");
+      const visibleProducts = products.filter((product) => {
+        const matchesCategory = activeCategory === "Tous" || product.category === activeCategory;
+        const matchesSearch = `${product.name} ${product.detail} ${product.category}`.toLocaleLowerCase("fr").includes(query);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (visibleProducts.length === 0) {
+        grid.innerHTML = '<div class="empty-results"><strong>Rien par ici.</strong>Essayez un autre mot ou une autre catégorie.</div>';
+        return;
+      }
+
+      grid.innerHTML = visibleProducts.map((product) => `
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/${product.image}?auto=format&fit=crop&w=700&q=80" alt="${product.name}, ${product.detail.toLowerCase()}" loading="lazy">
+            <span class="product-label">${product.label}</span>
+            <button class="quick-add" type="button" data-add="${product.id}" aria-label="Ajouter ${product.name} au panier">+</button>
+          </div>
+          <div class="product-info">
+            <div><h3 class="product-name">${product.name}</h3><p class="product-meta">${product.detail}</p></div>
+            <p class="product-price">${currency.format(product.price)}</p>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderCart() {
+      const entries = Object.entries(cart);
+      const totalQuantity = entries.reduce((sum, [, quantity]) => sum + quantity, 0);
+      const subtotal = entries.reduce((sum, [id, quantity]) => sum + products.find((product) => product.id === id).price * quantity, 0);
+
+      document.getElementById("bag-count").textContent = totalQuantity;
+      document.getElementById("drawer-count").textContent = totalQuantity ? `(${totalQuantity})` : "";
+      document.getElementById("cart-subtotal").textContent = currency.format(subtotal);
+      document.getElementById("checkout-button").disabled = totalQuantity === 0;
+      document.getElementById("shipping-progress").style.width = `${Math.min(subtotal / freeShipping * 100, 100)}%`;
+      document.getElementById("shipping-note").textContent = subtotal >= freeShipping
+        ? "Bonne nouvelle, la livraison est offerte !"
+        : `Plus que ${currency.format(freeShipping - subtotal)} pour profiter de la livraison offerte.`;
+
+      if (!entries.length) {
+        cartItems.innerHTML = '<div class="cart-empty"><strong>Votre panier est tout léger.</strong><span>Il manque juste un joli objet.</span></div>';
+      } else {
+        cartItems.innerHTML = entries.map(([id, quantity]) => {
+          const product = products.find((item) => item.id === id);
+          return `<article class="cart-item">
+            <img src="https://images.unsplash.com/${product.image}?auto=format&fit=crop&w=180&q=75" alt="" loading="lazy">
+            <div><h3 class="cart-item-name">${product.name}</h3><p class="cart-item-price">${currency.format(product.price)}</p>
+              <div class="quantity-control" aria-label="Quantité de ${product.name}">
+                <button type="button" data-quantity="${id}" data-change="-1" aria-label="Retirer un ${product.name}">−</button>
+                <span>${quantity}</span>
+                <button type="button" data-quantity="${id}" data-change="1" aria-label="Ajouter un ${product.name}">+</button>
+              </div>
+            </div>
+            <button class="remove-button" type="button" data-remove="${id}" aria-label="Retirer ${product.name} du panier">×</button>
+          </article>`;
+        }).join("");
+      }
+      localStorage.setItem("atm-fod-cart", JSON.stringify(cart));
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("visible"), 2200);
+    }
+
+    function getMediaKind(file) {
+      const type = file.type.toLowerCase();
+      const name = file.name.toLowerCase();
+      if ((type.startsWith("image/") || /\.(avif|gif|heic|jpe?g|png|webp)$/.test(name)) && type !== "image/svg+xml") return "image";
+      if (type.startsWith("video/") || /\.(m4v|mov|mp4|ogv|webm)$/.test(name)) return "video";
+      if (type === "application/pdf" || name.endsWith(".pdf")) return "pdf";
+      if (type.startsWith("audio/") || /\.(aac|m4a|mp3|oga|ogg|wav|weba)$/.test(name)) return "audio";
+      return null;
+    }
+
+    function createMediaElement(attachment) {
+      const item = document.createElement("div");
+      item.className = "attachment-item";
+
+      if (attachment.kind === "image") {
+        const image = document.createElement("img");
+        image.className = "attachment-preview";
+        image.src = attachment.url;
+        image.alt = attachment.name;
+        item.append(image);
+      } else if (attachment.kind === "video") {
+        const video = document.createElement("video");
+        video.className = "attachment-preview";
+        video.src = attachment.url;
+        video.controls = true;
+        video.preload = "metadata";
+        video.playsInline = true;
+        item.append(video);
+      } else if (attachment.kind === "audio") {
+        const audio = document.createElement("audio");
+        audio.className = "attachment-audio";
+        audio.src = attachment.url;
+        audio.controls = true;
+        audio.preload = "metadata";
+        item.append(audio);
+      } else {
+        const link = document.createElement("a");
+        link.className = "attachment-pdf";
+        link.href = attachment.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.setAttribute("aria-label", `Ouvrir le PDF ${attachment.name}`);
+        const mark = document.createElement("span");
+        mark.className = "pdf-mark";
+        mark.textContent = "PDF";
+        const name = document.createElement("span");
+        name.className = "attachment-name";
+        name.textContent = attachment.name;
+        link.append(mark, name);
+        item.append(link);
+      }
+
+      if (attachment.pendingId) {
+        const remove = document.createElement("button");
+        remove.className = "attachment-remove";
+        remove.type = "button";
+        remove.dataset.removeAttachment = attachment.pendingId;
+        remove.setAttribute("aria-label", `Retirer ${attachment.name}`);
+        remove.textContent = "×";
+        item.append(remove);
+      } else if (attachment.kind !== "pdf") {
+        const name = document.createElement("span");
+        name.className = "attachment-name";
+        name.textContent = attachment.name;
+        item.append(name);
+      }
+      return item;
+    }
+
+    function renderAttachmentPreview() {
+      const preview = document.getElementById("attachment-preview");
+      preview.replaceChildren(...pendingAttachments.map((attachment) => createMediaElement(attachment)));
+    }
+
+    function renderPublications() {
+      const feed = document.getElementById("publication-feed");
+      document.getElementById("publication-count").textContent = `${publications.length} publication${publications.length === 1 ? "" : "s"}`;
+      if (!publications.length) {
+        feed.innerHTML = '<p class="feed-empty">Aucune publication pour le moment.</p>';
+        return;
+      }
+
+      feed.replaceChildren(...publications.map((publication) => {
+        const card = document.createElement("article");
+        card.className = "publication-card";
+        const header = document.createElement("div");
+        header.className = "publication-header";
+        const heading = document.createElement("div");
+        const author = document.createElement("span");
+        author.className = "publication-author";
+        author.textContent = publication.author;
+        const date = document.createElement("time");
+        date.className = "publication-date";
+        date.dateTime = publication.createdAt;
+        date.textContent = new Date(publication.createdAt).toLocaleString("fr-FR", { dateStyle: "medium", timeStyle: "short" });
+        heading.className = "publication-byline";
+        const role = document.createElement("span");
+        role.className = "publication-role";
+        role.textContent = roleLabels[publication.role] || "Visiteur";
+        heading.append(author, role, date);
+        header.append(heading);
+        if (ownedPostTokens.has(publication.id)) {
+          const remove = document.createElement("button");
+          remove.className = "delete-publication";
+          remove.type = "button";
+          remove.dataset.deletePublication = publication.id;
+          remove.setAttribute("aria-label", "Supprimer cette publication");
+          remove.textContent = "×";
+          header.append(remove);
+        }
+        card.append(header);
+
+        if (publication.message) {
+          const message = document.createElement("p");
+          message.className = "publication-text";
+          message.textContent = publication.message;
+          card.append(message);
+        }
+
+        if (publication.attachments.length) {
+          const media = document.createElement("div");
+          media.className = "publication-media";
+          media.append(...publication.attachments.map((attachment) => createMediaElement(attachment)));
+          card.append(media);
+        }
+
+        if (publication.location) {
+          const { latitude, longitude } = publication.location;
+          const mapLink = document.createElement("a");
+          mapLink.className = "publication-location";
+          mapLink.href = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=16/${latitude}/${longitude}`;
+          mapLink.target = "_blank";
+          mapLink.rel = "noopener noreferrer";
+          mapLink.textContent = "⌖ Position GPS partagée · Voir la carte ↗";
+          card.append(mapLink);
+        }
+        return card;
+      }));
+    }
+
+    function clearPendingLocation() {
+      pendingLocation = null;
+      document.getElementById("clear-location").hidden = true;
+      document.getElementById("share-location").textContent = "⌖ Partager ma position GPS";
+      document.getElementById("gps-status").textContent = "La position est demandée uniquement après votre clic. Elle ne sera jointe qu’à la publication.";
+    }
+
+    publicationFilesInput.addEventListener("change", () => {
+      const selectedFiles = [...publicationFilesInput.files];
+      const status = document.getElementById("attachment-status");
+      if (selectedFiles.length + pendingAttachments.length > 5) {
+        status.textContent = "Vous pouvez joindre jusqu’à 5 fichiers par publication.";
+        publicationFilesInput.value = "";
+        return;
+      }
+      const invalidFile = selectedFiles.find((file) => !getMediaKind(file) || file.size > 15 * 1024 * 1024);
+      if (invalidFile) {
+        status.textContent = !getMediaKind(invalidFile)
+          ? `Format non pris en charge : ${invalidFile.name}`
+          : `${invalidFile.name} dépasse la limite de 15 Mo.`;
+        publicationFilesInput.value = "";
+        return;
+      }
+      selectedFiles.forEach((file) => {
+        pendingAttachments.push({
+          pendingId: crypto.randomUUID(),
+          file,
+          name: file.name,
+          kind: getMediaKind(file),
+          url: URL.createObjectURL(file)
+        });
+      });
+      status.textContent = pendingAttachments.length ? `${pendingAttachments.length} fichier${pendingAttachments.length === 1 ? "" : "s"} prêt${pendingAttachments.length === 1 ? "" : "s"} à publier.` : "";
+      publicationFilesInput.value = "";
+      renderAttachmentPreview();
+    });
+    document.getElementById("attachment-preview").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-remove-attachment]");
+      if (!button) return;
+      const index = pendingAttachments.findIndex((attachment) => attachment.pendingId === button.dataset.removeAttachment);
+      if (index !== -1) {
+        URL.revokeObjectURL(pendingAttachments[index].url);
+        pendingAttachments.splice(index, 1);
+      }
+      document.getElementById("attachment-status").textContent = pendingAttachments.length ? `${pendingAttachments.length} fichier${pendingAttachments.length === 1 ? "" : "s"} prêt${pendingAttachments.length === 1 ? "" : "s"} à publier.` : "";
+      renderAttachmentPreview();
+    });
+    document.getElementById("share-location").addEventListener("click", () => {
+      const status = document.getElementById("gps-status");
+      const button = document.getElementById("share-location");
+      if (!navigator.geolocation) {
+        status.textContent = "La géolocalisation n’est pas disponible dans ce navigateur.";
+        return;
+      }
+      button.disabled = true;
+      button.textContent = "Recherche de votre position…";
+      status.textContent = "Autorisez l’accès à votre position dans le navigateur.";
+      navigator.geolocation.getCurrentPosition((position) => {
+        pendingLocation = { latitude: position.coords.latitude, longitude: position.coords.longitude };
+        button.disabled = false;
+        button.textContent = "⌖ Position prête à partager";
+        document.getElementById("clear-location").hidden = false;
+        status.textContent = "Position récupérée. Elle sera visible par tous si vous publiez.";
+      }, (error) => {
+        button.disabled = false;
+        button.textContent = "⌖ Partager ma position GPS";
+        status.textContent = error.code === 1
+          ? "Accès refusé. Autorisez la géolocalisation dans le navigateur pour partager votre position."
+          : error.code === 3
+            ? "La demande GPS a expiré. Réessayez lorsque le signal est disponible."
+            : "Position indisponible. Vérifiez le signal GPS et réessayez.";
+      }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+    });
+
+    document.getElementById("clear-location").addEventListener("click", clearPendingLocation);
+    publicationForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const message = document.getElementById("publication-text").value.trim();
+      if (!message && !pendingAttachments.length && !pendingLocation) {
+        document.getElementById("attachment-status").textContent = "Ajoutez un message, un fichier ou votre position avant de publier.";
+        return;
+      }
+      const submitButton = document.querySelector(".publish-button");
+      const attachmentStatus = document.getElementById("attachment-status");
+      const submittedAttachments = [...pendingAttachments];
+      const submittedLocation = pendingLocation;
+      const formData = new FormData();
+      formData.set("message", message);
+      formData.set("author", profile?.name || "Visiteur");
+      formData.set("role", supportedRoles.includes(profile?.role) ? profile.role : "visiteur");
+      formData.set("latitude", submittedLocation ? String(submittedLocation.latitude) : "");
+      formData.set("longitude", submittedLocation ? String(submittedLocation.longitude) : "");
+      submittedAttachments.forEach(({ file, name }) => formData.append("files", file, name));
+
+      const formControls = [...publicationForm.querySelectorAll("button, input, textarea")];
+      formControls.forEach((control) => { control.disabled = true; });
+      submitButton.textContent = "Publication en cours…";
+      attachmentStatus.textContent = "Envoi sécurisé des fichiers et publication…";
+      try {
+        const response = await fetch("/api/publications", { method: "POST", body: formData });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "La publication n’a pas pu être envoyée.");
+        const { deleteToken } = result;
+        if (deleteToken) {
+          ownedPostTokens.set(result.id, deleteToken);
+          sessionStorage.setItem(ownedPostsStorageKey, JSON.stringify([...ownedPostTokens]));
+        }
+        submittedAttachments.forEach(({ url }) => URL.revokeObjectURL(url));
+        pendingAttachments = pendingAttachments.filter((attachment) => !submittedAttachments.includes(attachment));
+        if (pendingLocation === submittedLocation) clearPendingLocation();
+        document.getElementById("publication-text").value = "";
+        attachmentStatus.textContent = "";
+        renderAttachmentPreview();
+        await loadPublications();
+        document.getElementById("publication-status").textContent = "Publication visible par tous les visiteurs.";
+        showToast("Votre publication est maintenant publique.");
+      } catch (error) {
+        attachmentStatus.textContent = error.message || "Erreur de connexion. Réessayez.";
+      } finally {
+        formControls.forEach((control) => { control.disabled = false; });
+        submitButton.innerHTML = 'Publier <span aria-hidden="true">→</span>';
+      }
+    });
+
+    document.getElementById("publication-feed").addEventListener("click", async (event) => {
+      const button = event.target.closest("[data-delete-publication]");
+      if (!button) return;
+      const id = button.dataset.deletePublication;
+      const deleteToken = ownedPostTokens.get(id);
+      if (!deleteToken) return;
+      button.disabled = true;
+      try {
+        const response = await fetch(`/api/publications/${encodeURIComponent(id)}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${deleteToken}` }
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "La publication n’a pas pu être supprimée.");
+        ownedPostTokens.delete(id);
+        sessionStorage.setItem(ownedPostsStorageKey, JSON.stringify([...ownedPostTokens]));
+        publications = publications.filter((publication) => publication.id !== id);
+        renderPublications();
+        document.getElementById("publication-status").textContent = "Publication supprimée.";
+      } catch (error) {
+        button.disabled = false;
+        showToast(error.message || "Erreur de connexion. Réessayez.");
+      }
+    });
+
+    async function loadPublications() {
+      const status = document.getElementById("publication-status");
+      try {
+        const response = await fetch("/api/publications", { headers: { Accept: "application/json" } });
+        if (!response.ok) throw new Error("Le fil public est momentanément indisponible.");
+        const feed = await response.json();
+        publications = Array.isArray(feed) ? feed : [];
+        renderPublications();
+        status.textContent = "Toutes les publications sont partagées avec les visiteurs de ce site.";
+        document.querySelector(".publish-button").disabled = false;
+      } catch {
+        status.textContent = "Impossible de joindre le serveur. Les publications nécessitent une connexion au site.";
+        document.getElementById("publication-feed").innerHTML = '<p class="feed-empty">Le fil public est indisponible. Réessayez dans quelques instants.</p>';
+      }
+    }
+
+    function updateProfileFields() {
+      const role = document.getElementById("profile-role").value;
+      const shopField = document.getElementById("shop-field");
+      const shopInput = document.getElementById("profile-shop");
+      const vehicleField = document.getElementById("vehicle-field");
+      const requiresVehicle = role === "livreur" || role === "chauffeur";
+      shopField.hidden = role !== "vendeur";
+      shopInput.required = role === "vendeur";
+      vehicleField.hidden = !requiresVehicle;
+      document.getElementById("signup-title").textContent = profile ? "Modifier votre profil." : "Créer votre profil.";
+      document.getElementById("signup-submit").innerHTML = `${profile ? "Mettre à jour mon profil" : "Enregistrer mon profil"} <span aria-hidden="true">→</span>`;
+    }
+
+    function openProfileDialog() {
+      document.getElementById("profile-name").value = profile?.name || "";
+      document.getElementById("profile-email").value = profile?.email || "";
+      document.getElementById("profile-role").value = profile?.role || "acheteur";
+      document.getElementById("profile-shop").value = profile?.shop || "";
+      document.getElementById("profile-vehicle").value = profile?.vehicle || "velo";
+      document.getElementById("signup-status").textContent = "";
+      updateProfileFields();
+      document.getElementById("signup-dialog").showModal();
+    }
+
+    document.getElementById("open-account").addEventListener("click", openProfileDialog);
+    document.getElementById("close-signup").addEventListener("click", () => document.getElementById("signup-dialog").close());
+
+    // Initialisation Socket.io
+    socket.on("connect", () => {
+        console.log("Connecté au serveur :", socket.id);
+    });
+
+    document.getElementById("profile-role").addEventListener("change", updateProfileFields);
+    document.getElementById("signup-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      profile = {
+        name: formData.get("name").trim(),
+        email: formData.get("email").trim(),
+        role: formData.get("role"),
+        shop: formData.get("shop").trim(),
+        vehicle: formData.get("vehicle")
+      };
+      localStorage.setItem(profileStorageKey, JSON.stringify(profile));
+      document.getElementById("account-label").textContent = "Mon profil";
+      document.getElementById("open-account").setAttribute("aria-label", "Modifier mon profil");
+      document.getElementById("signup-status").textContent = "Profil enregistré sur cet appareil.";
+      announcePresence();
+      showToast("Votre profil a été enregistré.");
+      document.getElementById("signup-dialog").close();
+    });
+
+    function addToCart(id) {
+      cart[id] = (cart[id] || 0) + 1;
+      renderCart();
+      const product = products.find((item) => item.id === id);
+      showToast(`${product.name} ajouté au panier`);
+    }
+
+    function toggleCart(open) {
+      drawer.classList.toggle("open", open);
+      drawer.setAttribute("aria-hidden", String(!open));
+      overlay.hidden = !open;
+      overlay.classList.toggle("visible", open);
+      document.body.classList.toggle("locked", open);
+      if (open) document.getElementById("close-cart").focus();
+      else document.getElementById("open-cart").focus();
+    }
+
+    document.getElementById("filters").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-category]");
+      if (!button) return;
+      activeCategory = button.dataset.category;
+      document.querySelectorAll(".filter-button").forEach((filter) => filter.setAttribute("aria-pressed", String(filter === button)));
+      renderProducts();
+    });
+
+    grid.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-add]");
+      if (button) addToCart(button.dataset.add);
+    });
+
+    searchInput.addEventListener("input", renderProducts);
+    document.getElementById("open-cart").addEventListener("click", () => toggleCart(true));
+    document.getElementById("close-cart").addEventListener("click", () => toggleCart(false));
+    overlay.addEventListener("click", () => toggleCart(false));
+
+    cartItems.addEventListener("click", (event) => {
+      const quantityButton = event.target.closest("[data-quantity]");
+      const removeButton = event.target.closest("[data-remove]");
+      if (quantityButton) {
+        const id = quantityButton.dataset.quantity;
+        cart[id] += Number(quantityButton.dataset.change);
+        if (cart[id] < 1) delete cart[id];
+        renderCart();
+      }
+      if (removeButton) {
+        delete cart[removeButton.dataset.remove];
+        renderCart();
+      }
+    });
+
+    const confirmation = document.getElementById("confirmation-dialog");
+    document.getElementById("checkout-button").addEventListener("click", () => {
+      if (Object.keys(cart).length && typeof confirmation.showModal === "function") confirmation.showModal();
+    });
+
+    function finishShopping() {
+      if (confirmation.open) confirmation.close();
+      cart = {};
+      renderCart();
+      toggleCart(false);
+    }
+
+    document.getElementById("close-confirmation").addEventListener("click", () => confirmation.close());
+    document.getElementById("continue-shopping").addEventListener("click", finishShopping);
+    document.getElementById("newsletter-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      document.getElementById("newsletter-email").value = "";
+      showToast("Merci, vous êtes bien inscrit·e !");
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && drawer.classList.contains("open")) toggleCart(false);
+    });
+
+    renderProducts();
+    renderCart();
+    loadPublications();
+    if (profile) {
+      document.getElementById("account-label").textContent = "Mon profil";
+      document.getElementById("open-account").setAttribute("aria-label", "Modifier mon profil");
+    }
+    announcePresence();
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/service-worker.js")
+          .catch((error) => console.error("Impossible d’enregistrer le mode application hors ligne:", error));
+      });
+    }
+  </script>
+</body>
+</html>

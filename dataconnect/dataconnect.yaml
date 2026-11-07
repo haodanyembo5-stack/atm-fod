@@ -1,0 +1,13 @@
+specVersion: "v1"
+serviceId: "device-streaming-d8c33109-service"
+location: "us-east4"
+schemas:
+  - source: "./schema"
+    datasource:
+      postgresql:
+        database: "device-streaming-d8c33109-database"
+        cloudSql:
+          instanceId: "device-streaming-d8c33109-instance"
+          # schemaValidation: "STRICT"     # STRICT mode makes Postgres schema match Data Connect exactly.
+          # schemaValidation: "COMPATIBLE" # COMPATIBLE mode makes Postgres schema compatible with Data Connect.
+connectorDirs: ["./example"]
