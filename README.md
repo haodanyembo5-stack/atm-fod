@@ -24,9 +24,9 @@ Le SDK Firebase est regroupé localement à chaque démarrage. Les statistiques 
 
 Le fichier `firebase-client.js` contient la configuration web publique du projet Firebase. Une clé API web Firebase n’est pas un secret ; restreindre néanmoins ses référents aux domaines de production dans Google Cloud Console et activer Google Analytics pour le projet Firebase.
 
-## Déployer sur Render
+## Déployer gratuitement sur Render
 
-Le fichier `render.yaml` configure un service Node Render avec un disque persistant monté sur `/var/data`. Les publications et leurs médias sont conservés dans `/var/data/data` et `/var/data/uploads`, y compris après un redéploiement. Le plan `starter` est requis pour le disque persistant. La rubrique Services fait partie de la page existante : elle est incluse automatiquement dans le déploiement du site, sans service ou dépendance supplémentaire.
+Le fichier `render.yaml` configure un service Node sur le plan gratuit, sans carte ni disque persistant. Render peut arrêter le service après 15 minutes sans trafic et le redémarrer à tout moment. Les publications et fichiers téléversés sont enregistrés dans le système de fichiers éphémère ; ils peuvent disparaître après une mise en veille, un redémarrage ou un redéploiement. Le plan gratuit dispose aussi d’un quota mensuel d’heures et de bande passante ; une fois les limites atteintes, Render peut suspendre le service ou les nouveaux déploiements. Utiliser un disque persistant pour conserver les données nécessite une offre payante.
 
 Pour publier le site, pousser ce dossier vers un dépôt GitHub ou GitLab, puis dans Render choisir **New > Blueprint** et connecter ce dépôt. Render détectera `render.yaml`, créera le service et fournira son URL HTTPS. Le serveur utilise automatiquement `RENDER_EXTERNAL_URL` pour les URL canoniques, `robots.txt` et `sitemap.xml`. Pour un domaine personnalisé, configurer `SITE_URL` avec son URL HTTPS canonique dans les variables du service Render.
 
